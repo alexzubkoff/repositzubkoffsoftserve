@@ -1,31 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
-    .row.content {height: 550px}
-    
-    .sidenav {
-      background-color: #ffffff;
-      height: 100%;
-    }
-        
-    /* On small screens, set height to 'auto' for the grid */
-    @media screen and (max-width: 767px) {
-      .row.content {height: auto;}
-    }
-  </style>
-</head>
-<body>
-
-<h1 style="color:blue;margin-left:10px;">3.Sort triangles</h>
-
 
 <?php
+
+echo '<h1 style="color:blue;margin-left:570px;">3.Sort triangles</h1>';
 ////////////////////
 
 $triangle1="ABC";
@@ -75,7 +51,7 @@ $triangle3_c=4;
   $triangles[2]= new Triangle($triangle3,$triangle3_a,$triangle3_b,$triangle3_c);
 
 
-function checkNum($env_a,$env_b,$env_c) {
+function checkNum3($env_a,$env_b,$env_c) {
   if($env_a<0||!is_numeric($env_a)||$env_b<0||!is_numeric($env_b)||$env_c<0||!is_numeric($env_c)) {
     throw new Exception("<h1>Value must be 0 or below</h1>");
   }
@@ -91,9 +67,9 @@ function createAssociativeArraysTriangles($triangles_array){
 }
 
 try {
-  checkNum($triangle1_a,$triangle1_b,$triangle1_c);
-  checkNum($triangle2_a,$triangle2_b,$triangle2_c);
-  checkNum($triangle3_a,$triangle3_b,$triangle3_c);
+  checkNum3($triangle1_a,$triangle1_b,$triangle1_c);
+  checkNum3($triangle2_a,$triangle2_b,$triangle2_c);
+  checkNum3($triangle3_a,$triangle3_b,$triangle3_c);
 
   $results_array=createAssociativeArraysTriangles($triangles);
 
@@ -106,7 +82,7 @@ try {
 uasort($results_array, 'cmp');
 
 foreach($results_array as $triangle => $area) {
-    echo '<h3 style="color:blue;position:absolute;">Triangle=' .$triangle . ", Area=" . $area."</h3>";
+    echo '<h2 style="color:blue;position:absolute;margin-left:570px;">Triangle=' .$triangle . ", Area=" . $area."</h2>";
     echo "<br>";
 }
 

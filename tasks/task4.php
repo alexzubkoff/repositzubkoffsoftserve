@@ -1,35 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
-    .row.content {height: 550px}
-    
-    .sidenav {
-      background-color: #ffffff;
-      height: 100%;
-    }
-        
-    /* On small screens, set height to 'auto' for the grid */
-    @media screen and (max-width: 767px) {
-      .row.content {height: auto;}
-    }
-  </style>
-</head>
-<body>
-
-<h1 style="color:blue;">4.Happy tickets</h1>
-
-<?php
-echo '<h1 style="color:blue;position:absolute; top:180px;">Result:</h1>';
-?>
 
 <?php
 
+echo '<h1 style="color:blue;margin-left:1000px;">4.Happy tickets</h1>';
+echo '<h1 style="color:blue;position:absolute;margin-left:1000px;top:500px;">Result:</h1>';
 /////////////////
 
 $context_min=111111;
@@ -78,7 +51,7 @@ class HappyTicket{
 
  }
 
-function checkNum($env_a,$env_b) {
+function checkNum4($env_a,$env_b) {
 
   if($env_a<0||!is_numeric($env_a)||$env_b<0||!is_numeric($env_b)||strlen(strval($env_a))>6||strlen(strval($env_b))>6) {
     throw new Exception("<h1>Value must be 0 or below and must has not more 6 digits</h1>");
@@ -88,21 +61,21 @@ function checkNum($env_a,$env_b) {
 
 
 try {
-  checkNum($context_min,$context_max);
+  checkNum4($context_min,$context_max);
 
    $happy_tick=new HappyTicket($context_min,$context_max);
      $simple=$happy_tick->methodSimple();
      $notsimple=$happy_tick->methodNotSimple();
 
-    echo '<h1 style="color:blue;position:absolute; top:70px;">Context min: '.$context_min.'</h1>';
-    echo '<h1 style="color:blue;position:absolute; top:110px;">Context max: '.$context_max.'</h1>';
+    echo '<h1 style="color:blue;position:absolute; margin-left:1000px;top:360px;">Context min: '.$context_min.'</h1>';
+    echo '<h1 style="color:blue;position:absolute;margin-left:1000px;top:410px;">Context max: '.$context_max.'</h1>';
 
       if($simple>$notsimple){
-          echo '<h2 style="color:blue;position:absolute; top:250px;">Simple: '.$simple.' tickets</h2>';
-          echo '<h2 style="color:blue;position:absolute; top:310px;">Not simple: '.$notsimple.' tickets</h2>';
+          echo '<h2 style="color:blue;position:absolute;margin-left:1000px;top:550px;">Simple: '.$simple.' tickets</h2>';
+          echo '<h2 style="color:blue;position:absolute;margin-left:1000px;top:600px;">Not simple: '.$notsimple.' tickets</h2>';
       }else{
-          echo '<h2 style="color:blue;position:absolute; top:250px;">Not simple: '.$notsimple.' tickets</h2>';
-          echo '<h2 style="color:blue;position:absolute; top:310px;">Simple: '.$simple.' tickets</h2>';
+          echo '<h2 style="color:blue;position:absolute; margin-left:1000px;top:550px;">Not simple: '.$notsimple.' tickets</h2>';
+          echo '<h2 style="color:blue;position:absolute; margin-left:1000px;top:600px;">Simple: '.$simple.' tickets</h2>';
       }
 
 }catch(Exception $e) {

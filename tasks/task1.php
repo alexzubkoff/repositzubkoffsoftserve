@@ -1,35 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
-    .row.content {height: 550px}
-    
-    .sidenav {
-      background-color: #ffffff;
-      height: 100%;
-    }
-        
-    /* On small screens, set height to 'auto' for the grid */
-    @media screen and (max-width: 767px) {
-      .row.content {height: auto;}
-    }
-  </style>
-</head> 
-<body>
-
-<h1 style="color:blue;margin-left:5px;">1.Chess board</h1>
-
 
 <?php
+
+echo '<h1 style="color:blue;margin-left:5px;">1.Chess board</h1>';
 echo '<h1 style="color:blue;position:absolute;margin-left:10px; top:320px;">Result:</h1>';
-?>
-
-<?php
 
 function ChessBoard($myboard_weight,$myboard_height,$myboard_sign){
 
@@ -81,6 +54,5 @@ try {
 
 ?>
 
-</body>
-</html>
+
 

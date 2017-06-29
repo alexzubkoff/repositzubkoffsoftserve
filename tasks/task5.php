@@ -1,36 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
-    .row.content {height: 550px}
-    
-    .sidenav {
-      background-color: #ffffff;
-      height: 100%;
-    }
-        
-    /* On small screens, set height to 'auto' for the grid */
-    @media screen and (max-width: 767px) {
-      .row.content {height: auto;}
-    }
-  </style>
-</head>
-<body>
-
-<h1 style="color:blue;">5.Fibonache numbers</h1>
-
-<h1></h1>
-<?php
-echo '<h1 style="color:blue;position:absolute; top:200px;">Result:</h1>';
-?>
 
 <?php
 
+echo '<h1 style="color:blue;position:absolute;margin-left:1350px; top:590px;">Result:</h1>';
+echo '<h1 style="color:blue;margin-left:1350px;top:500px;">5.Fibonache numbers</h1>';
 function getRowFibonachi($value){
 
 $num1=1;
@@ -53,7 +25,7 @@ $myrow=10;
 
 //////////////////
 
-function checkNum($number1) {
+function checkNum5($number1) {
   if($number1<0||!is_numeric($number1)) {
     throw new Exception("<h1>Value must be 0 or below</h1>");
   }
@@ -61,11 +33,11 @@ function checkNum($number1) {
 }
 
 try {
-  checkNum($myrow);
+  checkNum5($myrow);
   $result=getRowFibonachi($myrow);
-  echo '<h1 style="color:blue;position:absolute; top:120px;">Row length:'.$myrow.'</h1>';
+  echo '<h1 style="color:blue;position:absolute;margin-left:1350px; top:480px;">Row length:'.$myrow.'</h1>';
   $result_str= implode(",", $result);
-  echo '<h2 style="color:blue;position:absolute; top:250px;">'.$result_str."</h2>";
+  echo '<h2 style="color:blue;position:absolute;margin-left:1350px; top:630px;">'.$result_str."</h2>";
 
 }catch(Exception $e) {
   echo '<h1>{status: "failed", reason:"'.$e->getMessage().'"}</h1>';
@@ -74,5 +46,3 @@ try {
 ?>
 
 
-</body>
-</html>
