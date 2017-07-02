@@ -38,9 +38,9 @@ function checkNum($number1,$number2,$sign) {
   return true;
 }
 
-echo '<h1 style="color:blue;position:absolute; margin-left:10px;top:120px;">Width:'.$board_width.';</h1>';
-echo '<h1 style="color:blue;position:absolute; margin-left:10px;top:180px;">Heigth:'.$board_heigth.';</h1>';
-echo '<h1 style="color:blue;position:absolute; margin-left:10px;top:240px;">Sign:'.$board_sign.';</h1>';
+echo '<h2 style="color:blue;position:absolute; margin-left:10px;top:120px;">Width:'.$board_width.';</h2>';
+echo '<h2 style="color:blue;position:absolute; margin-left:10px;top:180px;">Heigth:'.$board_heigth.';</h2>';
+echo '<h2 style="color:blue;position:absolute; margin-left:10px;top:240px;">Sign:'.$board_sign.';</h2>';
 echo '<h1 style="color:blue;position:absolute;margin-left:10px; top:320px;">Result:</h1>';
 
 //////////////////Chess board////////////////////////
@@ -53,28 +53,32 @@ echo '<h1 style="color:blue;margin-left:230px;">2.Analyse envelopes</h1>';
 
 ////////////////// Intialisation Block///////
 
-$envelope_a= 5.8;
-$envelope_b= 5.7;
-$envelope_c= 4.5;
-$envelope_d= 3;
+$envelope_a= 5.7;
+$envelope_b= 4.7;
+$envelope_c= 5.6;
+$envelope_d= 4.6;
 
 ///////////////////////////////////////////
 try {
 
   checkNum2($envelope_a,$envelope_b,$envelope_c,$envelope_d);
   include "tasks/task2.php";
-  $envelopes= new AnalyseEnvelopes($envelope_a,$envelope_b,$envelope_c,$envelope_d);
-  $result = $envelopes->getAnalyse();
+
+  $envelope1= new Envelope($envelope_a,$envelope_b);
+  $envelope2= new Envelope($envelope_c,$envelope_d);
+
+  $result = $envelope1->compareTo($envelope2);
+
   echo '<h1 style="color:blue;position:absolute;margin-left:250px; top:450px;">'.$result.'</h1>';
 
 }catch(Exception $e) {
   echo '<h1>{status: "failed", reason:"'.$e->getMessage().'"}</h1>';
 }
 
-echo '<h1 style="color:blue;position:absolute; margin-left:230px;top:150px;">Envelope1 side a:'.$envelope_a.';</h1>';
-echo '<h1 style="color:blue;position:absolute; margin-left:230px;top:210px;">Envelope1 side b:'.$envelope_b.';</h1>';
-echo '<h1 style="color:blue;position:absolute; margin-left:230px;top:270px;">Envelope2 side c:'.$envelope_c.';</h1>';
-echo '<h1 style="color:blue;position:absolute; margin-left:230px;top:330px;">Envelope2 side d:'.$envelope_d.';</h1>';
+echo '<h3 style="color:blue;position:absolute; margin-left:230px;top:170px;">Envelope1 side a:'.$envelope_a.';</h3>';
+echo '<h3 style="color:blue;position:absolute; margin-left:230px;top:230px;">Envelope1 side b:'.$envelope_b.';</h3>';
+echo '<h3 style="color:blue;position:absolute; margin-left:230px;top:300px;">Envelope2 side c:'.$envelope_c.';</h3>';
+echo '<h3 style="color:blue;position:absolute; margin-left:230px;top:350px;">Envelope2 side d:'.$envelope_d.';</h3>';
 
 echo '<h1 style="color:blue;position:absolute;margin-left:230px; top:400px;">Result:</h1>';
 
@@ -109,10 +113,14 @@ $triangle3_b=4;
 $triangle3_c=4;
 ////////////////////////////////////////////////////////////////////////
 
+echo '<h3 style="color:blue;position:absolute; margin-left:550px;top:230px;">Triangle 1='.$triangle1.";side a=".$triangle1_a.";side b=".$triangle1_b.";side c=".$triangle1_c.';</3>';
+echo '<h3 style="color:blue;position:absolute; margin-left:550px;top:250px;">Triangle 2='.$triangle2.";side a=".$triangle2_a.";side b=".$triangle2_b.";side c=".$triangle2_c.';</h3>';
+echo '<h3 style="color:blue;position:absolute; margin-left:550px;top:270px;">Triangle 3='.$triangle3.";side a=".$triangle3_a.";side b=".$triangle3_b.";side c=".$triangle3_c.';</h3>';
 try {
   checkNum3($triangle1_a,$triangle1_b,$triangle1_c);
   checkNum3($triangle2_a,$triangle2_b,$triangle2_c);
   checkNum3($triangle3_a,$triangle3_b,$triangle3_c);
+
   $triangles=array();
   include "tasks/task3.php";
   $triangles[0]= new Triangle($triangle1,$triangle1_a,$triangle1_b,$triangle1_c);
@@ -121,17 +129,24 @@ try {
   
   $results_array=createAssociativeArraysTriangles($triangles);
 
-  function cmp($a, $b) {
+   function cmp($a, $b) {
     if ($a == $b) {
         return 0;
     }
     return ($a < $b) ? 1 : -1;
-}
-uasort($results_array, 'cmp');
+    }  
+
+
+  uasort($results_array,'cmp');
+  
+
+echo '<h2 style="color:blue;position:absolute;margin-left:550px;margin-top:160px;">Result:</h2>';
 
 foreach($results_array as $triangle => $area) {
-    echo '<h2 style="color:blue;position:absolute;margin-left:570px;">Triangle=' .$triangle . ", Area=" . $area."</h2>";
+    echo '<h2 style="color:blue;position:absolute;margin-left:550px;margin-top:190px;">Triangle=' .$triangle . ",&nbsp&nbsp&nbsp&nbspArea=" . $area."</h2>";
     echo "<br>";
+    echo "<p></p>";
+    
 }
 
 }catch(Exception $e) {
@@ -164,8 +179,8 @@ echo '<h1 style="color:blue;position:absolute;margin-left:1000px;top:500px;">Res
 
 /////////////////Initialisation Block//////////////////////////////////////
 
-$context_min=11677;
-$context_max=22678;
+$context_min=112000;
+$context_max=222000;
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -173,11 +188,12 @@ try {
    checkNum4($context_min,$context_max);
 
    include "tasks/task4.php";
-
-   $happy_tick=new HappyTicket($context_min,$context_max);
+   
+   $context_tick= new ContextTicket($context_min,$context_max);
+   $happy_tick=new HappyTicket($context_tick);
      
-    echo '<h1 style="color:blue;position:absolute; margin-left:1000px;top:360px;">Context min: '.$context_min.'</h1>';
-    echo '<h1 style="color:blue;position:absolute;margin-left:1000px;top:410px;">Context max: '.$context_max.'</h1>';
+    echo '<h2 style="color:blue;position:absolute; margin-left:1000px;top:380px;">Context min: '.$context_min.'</h2>';
+    echo '<h2 style="color:blue;position:absolute;margin-left:1000px;top:430px;">Context max: '.$context_max.'</h2>';
 
     $happy_tick->methodChampion();
 
@@ -199,24 +215,31 @@ function checkNum4($env_a,$env_b) {
 
 ////////////////////// 5. Fibonache numbers///////////////////////////////
 
-echo '<h1 style="color:blue;position:absolute;margin-left:1350px; top:590px;">Result:</h1>';
+echo '<h1 style="color:blue;position:absolute;margin-left:1350px; top:610px;">Result:</h1>';
 echo '<h1 style="color:blue;margin-left:1350px;top:500px;">5.Fibonache numbers</h1>';
 
 /////////////////// Initialisation block////////////////// 
-
+$cont_min=0;
+$cont_max=10;
 $myrow=10;
 
 /////////////////////////////////////////////////////////
 
 
 try {
-  checkNum5($myrow);
+  checkNum5($myrow,$cont_min,$cont_max);
   include "tasks/task5.php";
-  $fibrow=new RowFibonache($myrow);
+
+  $context=new Context($myrow);
+  $context->setMinMax($cont_min,$cont_max);
+
+  $fibrow=new RowFibonache($context);
   $result=$fibrow->getRowFibonache();
-  echo '<h1 style="color:blue;position:absolute;margin-left:1350px; top:480px;">Row length:'.$myrow.'</h1>';
+  echo '<h3 style="color:blue;position:absolute;margin-left:1350px; top:470px;">Row min:'.$cont_min.';</h3>';
+  echo '<h3 style="color:blue;position:absolute;margin-left:1350px; top:510px;">Row max:'.$cont_max.';</h3>';
+  echo '<h3 style="color:blue;position:absolute;margin-left:1350px; top:550px;">Row length:'.count($result).';</h3>';
   $result_str= implode(",", $result);
-  echo '<h2 style="color:blue;position:absolute;margin-left:1350px; top:630px;">'.$result_str."</h2>";
+  echo '<h2 style="color:blue;position:absolute;margin-left:1350px; top:650px;">'.$result_str."</h2>";
 
 }catch(Exception $e) {
   echo '<h1>{status: "failed", reason:"'.$e->getMessage().'"}</h1>';
@@ -224,8 +247,8 @@ try {
 
 
 
-function checkNum5($number1) {
-  if($number1<0||!is_numeric($number1)) {
+function checkNum5($number1,$number2,$number3) {
+  if($number1<0||!is_numeric($number1)||$number2<0||!is_numeric($number2)||$number3<0||!is_numeric($number3)) {
     throw new Exception("<h1>Value must be 0 or below</h1>");
   }
   return true;

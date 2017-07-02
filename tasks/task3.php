@@ -2,10 +2,10 @@
 <?php
 
  class Triangle{
-      public $name;
-      public $a;
-      public $b;
-      public $c;
+      private $name;
+      private $a;
+      private $b;
+      private $c;
 
     function __construct($name,$a,$b,$c){
       $this->name=$name;
@@ -17,7 +17,7 @@
     public function getArea(){
       $p=($this->a+$this->b+$this->c)/2;
       $S=sqrt($p*($p-$this->a)*($p-$this->b)*($p-$this->c));
-       return (float)$S;
+       return round($S,2);
     }
     
    public function toString(){
@@ -25,4 +25,6 @@
     }
  }
   
+  
+
 ?>

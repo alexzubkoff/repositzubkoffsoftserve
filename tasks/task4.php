@@ -7,7 +7,9 @@ class HappyTicket{
       private $simple_count=0;
       private $notsimple_count=0;
 
-      function __construct($context_min,$context_max){
+      function __construct(ContextTicket $other){
+         $context_min=$other->getContextMin();
+         $context_max=$other->getContextMax();
 
         if (strlen(strval($context_min))==1){
           $this->context_min=intval(strval($context_min)."00000");     
@@ -79,8 +81,22 @@ class HappyTicket{
 
  }
 
+ class ContextTicket{
+       private $min=0;
+       private $max=0;
+       function __construct($min,$max){
+        $this->min=$min;
+        $this->max=$max;
+       }
+        
+        public function getContextMin(){
+          return $this->min;
+        }
+        public function getContextMax(){
+          return $this->max;
+        }
+     }
+
 
 ?>
 
-</body>
-</html>
