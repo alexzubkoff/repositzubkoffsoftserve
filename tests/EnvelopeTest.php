@@ -18,5 +18,5 @@ class EnvelopeTest extends TestCase {
         $my1 = new Envelope(6.3,4.5);
         $my2 = new Envelope(6.3,4.5);
         $this->assertEquals('0', $my1->compareTo($my2)); 
- }
+    }
 }

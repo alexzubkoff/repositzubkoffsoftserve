@@ -28,7 +28,7 @@ class HappyTicket{
         if (strlen(strval($context_max))==1){
           $this->context_max=intval(strval($context_max)."00000");     
         }elseif(strlen(strval($context_max))==2){
-          $this->context_miax=intval(strval($context_max)."0000");
+          $this->context_max=intval(strval($context_max)."0000");
         }elseif(strlen(strval($context_max))==3){
           $this->context_max=intval(strval($context_max)."000");
         }elseif(strlen(strval($context_max))==4){
@@ -84,7 +84,9 @@ class HappyTicket{
  class ContextTicket{
        private $min=0;
        private $max=0;
+
        function __construct($min,$max){
+        
         $this->min=$min;
         $this->max=$max;
        }

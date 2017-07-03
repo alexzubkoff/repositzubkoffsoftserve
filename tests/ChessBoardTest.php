@@ -8,6 +8,6 @@ class ChessBoardTest extends TestCase {
     public function testgetChessBoard()
     {
         $my = new ChessBoard(6,1,'*');
-        $this->assertEquals('*&nbsp*&nbsp*&nbsp*&nbsp*&nbsp*&nbsp<br>', $my->getChessBoard()); 
- }
+        $this->assertEquals('*&nbsp*&nbsp*&nbsp*&nbsp*&nbsp*&nbsp<br/>', $my->getChessBoard());        
+ 	}
 }

@@ -16,5 +16,5 @@ class TriangleTest extends TestCase {
         $my1 = new Triangle("CBD",4,4,4);
         $this->assertEquals(6.93, $my1->getArea()); 
         
- }
+    }
  }
