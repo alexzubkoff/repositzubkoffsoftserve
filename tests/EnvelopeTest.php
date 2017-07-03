@@ -18,5 +18,17 @@ class EnvelopeTest extends TestCase {
         $my1 = new Envelope(6.3,4.5);
         $my2 = new Envelope(6.3,4.5);
         $this->assertEquals('0', $my1->compareTo($my2)); 
+
+        $my1 = new Envelope(6.3,4.5);
+        $my2 = new Envelope(6.2,4.4);
+        $this->assertEquals('1', $my2->compareTo($my1)); 
+
+        $my1 = new Envelope(6.2,4.4);
+        $my2 = new Envelope(6.3,4.5);
+        $this->assertEquals('2', $my2->compareTo($my1)); 
+
+        $my1 = new Envelope(6.3,4.5);
+        $my2 = new Envelope(6.3,4.5);
+        $this->assertEquals('0', $my2->compareTo($my1)); 
     }
 }
