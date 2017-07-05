@@ -3,7 +3,7 @@ require_once 'C:\OpenServer\domains\phptaskssoftserve.com\tasks\task2.php';
 
 use PHPUnit\Framework\TestCase;
 
-class EnvelopeTest extends TestCase {
+class EnvelopeTestNegative extends TestCase {
      /**
      * @dataProvider additionProvider
      */
@@ -17,9 +17,9 @@ class EnvelopeTest extends TestCase {
     public function additionProvider()
     {
         return [
-            [6.3,4.5,6.2,4.4,'2'],
-            [6.2,4.4,6.3,4.5,'1'],
-            [6.3,4.5,6.3,4.5,'0']
+            [6.3,4.5,6.2,4.4,'1'],
+            [6.2,4.4,6.3,4.5,'2'],
+            [6.3,4.5,6.3,4.5,'1']
         ];
     }
 

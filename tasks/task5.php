@@ -1,17 +1,20 @@
-
 <?php
-
 class RowFibonache{
-  
   private   $length;
   private   $min=0;
   private   $max=0;
-
+  
   function __construct(Context $other){
-
+    $number1=$other->getContextLength();
+    $number2=$other->getContextMin();
+    $number3=$other->getContextMax();
+    if($number1<0||!is_numeric($number1)||$number2<0||!is_numeric($number2)||$number3<0||!is_numeric($number3)) {
+      throw new Exception("<h1>Value must be 0 or below</h1>");
+    }else{
       $this->length=$other->getContextLength();
       $this->min=$other->getContextMin();
-      $this->max=$other->getContextMax();        
+      $this->max=$other->getContextMax();  
+    }            
     }
 
   public  function getRowFibonache(){
@@ -73,6 +76,6 @@ class RowFibonache{
      }
 
 
-?>
+
 
 

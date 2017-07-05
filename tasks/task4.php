@@ -1,6 +1,4 @@
-
 <?php
-
 class HappyTicket{
       private $context_min;
       private $context_max;
@@ -8,8 +6,13 @@ class HappyTicket{
       private $notsimple_count=0;
 
       function __construct(ContextTicket $other){
-         $context_min=$other->getContextMin();
-         $context_max=$other->getContextMax();
+         $env_a=$other->getContextMin();
+         $env_b=$other->getContextMax();
+        if($env_a<0||!is_numeric($env_a)||$env_b<0||!is_numeric($env_b)||strlen(strval($env_a))>6||strlen(strval($env_b))>6) {
+         throw new Exception("<h1>Value must be 0 or below and must has not more 6 digits</h1>");
+        }else{
+          $context_min=$other->getContextMin();
+          $context_max=$other->getContextMax();
 
         if (strlen(strval($context_min))==1){
           $this->context_min=intval(strval($context_min)."00000");     
@@ -40,6 +43,8 @@ class HappyTicket{
         }
     }
 
+        }
+         
     public function methodSimple(){
      
       for ($i=$this->context_min; $i<=$this->context_max; $i++){
@@ -100,5 +105,5 @@ class HappyTicket{
      }
 
 
-?>
+
 

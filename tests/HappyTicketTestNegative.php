@@ -3,7 +3,7 @@ require_once 'C:\OpenServer\domains\phptaskssoftserve.com\tasks\task4.php';
 
 use PHPUnit\Framework\TestCase;
 
-class HapyTicketTest extends TestCase {
+class HapyTicketTestNegative extends TestCase {
 
     /**
      * @dataProvider additionProvider
@@ -20,9 +20,9 @@ class HapyTicketTest extends TestCase {
     public function additionProvider()
     {
         return [
-            [112,222,2968],
-            [11200,222000,2968],
-            [112000,222000,2968]
+            [112,222,5913],
+            [11200,222000,5913],
+            [112000,222000,5913]
         ];
     }
 
@@ -40,9 +40,9 @@ class HapyTicketTest extends TestCase {
     public function additionProvider2()
     {
         return [
-            [112,222,5913],
-            [11200,222000,5913],
-            [112000,222000,5913]
+            [112,222,2968],
+            [11200,222000,2968],
+            [112000,222000,2968]
         ];
     }
 }

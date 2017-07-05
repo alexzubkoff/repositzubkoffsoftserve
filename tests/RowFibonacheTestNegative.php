@@ -4,7 +4,7 @@ require_once 'C:\OpenServer\domains\phptaskssoftserve.com\tasks\task5.php';
 
 use PHPUnit\Framework\TestCase;
 
-class RowFibonacheTest extends TestCase {
+class RowFibonacheTestNegative extends TestCase {
     
     
     /**
@@ -21,9 +21,9 @@ class RowFibonacheTest extends TestCase {
     public function additionProvider()
     {
         return [
-            [10,[0,1,1,2,3,5,8,13,21,34]],
-            [5,[0,1,1,2,3]],
-            [3,[0,1,1]]
+            [9,[0,1,1,2,3,5,8,13,21,34]],
+            [4,[0,1,1,2,3]],
+            [2,[0,1,1]]
         ];
     }
 

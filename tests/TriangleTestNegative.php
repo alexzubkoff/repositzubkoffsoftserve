@@ -3,7 +3,7 @@ require_once 'C:\OpenServer\domains\phptaskssoftserve.com\tasks\task3.php';
 
 use PHPUnit\Framework\TestCase;
 
-class TriangleTest extends TestCase {
+class TriangleTestNegative extends TestCase {
     /**
      * @dataProvider additionProvider
      */
@@ -16,9 +16,9 @@ class TriangleTest extends TestCase {
     public function additionProvider()
     {
         return [
-            ["ABC",4,5,6,9.92],
-            ["BCD",5,5,5,10.83],
-            ["CBD",4,4,4,6.93]
+            ["ABC",4,5,6,9],
+            ["BCD",5,5,5,10.8],
+            ["CBD",4,4,4,6.3]
         ];
     }
  }
