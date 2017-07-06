@@ -1,4 +1,38 @@
 <?php
+class TrianglesSortedArray extends Task{
+    private $assocarr=array();
+
+    function __construct(array $triangles_array){
+      $length=count($triangles_array);
+       for ($i=0;$i<$length;$i++){
+          $this->assocarr[$triangles_array[$i]->toString()]=$triangles_array[$i]->getArea();
+       } 
+    }
+    protected function validate(){
+      if(empty($this->assocarr)) {
+        throw new Exception("<h1>Value must be 0 or below</h1>");
+      }else{
+        $this->is_valid=true;
+      }
+    }
+    protected function run(){
+      $sorted_arr=$this->assocarr;
+    uasort($sorted_arr,function($a, $b){
+    if ($a == $b) {
+      return 0;
+    }
+      return ($a < $b) ? 1 : -1;
+    });
+
+      foreach($sorted_arr as $triangle => $area)
+      {
+        $this->str_result.='<h2 style="color:blue;position:absolute;margin-left:550px;margin-top:190px;">Triangle=' .$triangle . ",&nbsp&nbsp&nbsp&nbspArea=" . $area."</h2>";
+        $this->str_result.="<br>";
+        $this->str_result.="<p></p>";  
+      }
+      //return $this->str_result;
+    } 
+  }
 class Triangle{
       private $name;
       private $a;
@@ -22,33 +56,12 @@ class Triangle{
        return round($S,2);
     }
     
-   public function toString(){
+    public function toString(){
        return $this->name;
     }
  }
   
-  class TrianglesSortedArray{
-    private $assocarr=array();
-
-    function __construct(array $triangles_array){
-      $length=count($triangles_array);
-       for ($i=0;$i<$length;$i++){
-          $this->assocarr[$triangles_array[$i]->toString()]=$triangles_array[$i]->getArea();
-       } 
-    }
-
-    public function getSortedArray(){
-      $sorted_arr=$this->assocarr;
-    uasort($sorted_arr,function($a, $b){
-    if ($a == $b) {
-      return 0;
-    }
-      return ($a < $b) ? 1 : -1;
-    });
-
-      return $sorted_arr;
-    } 
-  }
+  
 
   
 

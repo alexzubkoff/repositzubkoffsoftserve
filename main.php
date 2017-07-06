@@ -1,4 +1,5 @@
 <?php
+include "tasks/task.php";
 include 'tasks/task1.php';
 include "tasks/task2.php";
 include "tasks/task3.php";
@@ -12,7 +13,7 @@ $board_sign="*";
 
 try {
   $newchessboard=new ChessBoard($board_width,$board_heigth,$board_sign); 
-  $res=$newchessboard->getChessBoard();
+  $res=$newchessboard->resolveString();
   ViewChessBoard($board_width,$board_heigth,$board_sign,$res);
 }
 catch(Exception $e) {
@@ -28,6 +29,7 @@ try {
   $envelope1= new Envelope($envelope_a,$envelope_b);
   $envelope2= new Envelope($envelope_c,$envelope_d);
   $result = $envelope1->compareTo($envelope2);
+  $result = $envelope1->resolveString();
   ViewEnelyseEnvelopes($envelope_a,$envelope_b,$envelope_c,$envelope_d,$result);
 }catch(Exception $e) {
   echo '<h1>{status: "failed", reason:"'.$e->getMessage().'"}</h1>';
@@ -55,7 +57,7 @@ $triangle4_b=7;
 $triangle4_c=10;
 try {
   $triangles=new TrianglesSortedArray(array(new Triangle($triangle1,$triangle1_a,$triangle1_b,$triangle1_c),new Triangle($triangle2,$triangle2_a,$triangle2_b,$triangle2_c),new Triangle($triangle3,$triangle3_a,$triangle3_b,$triangle3_c),new Triangle($triangle4,$triangle4_a,$triangle4_b,$triangle4_c)));
-  $results_array=$triangles->getSortedArray();
+  $results_array=$triangles->resolveString();
   ViewSortTriangles($triangle1,$triangle1_a,$triangle1_b,$triangle1_c,$triangle2,$triangle2_a,$triangle2_b,$triangle2_c,$triangle3,$triangle3_a,$triangle3_b,$triangle3_c,$triangle4,$triangle4_a,$triangle4_b,$triangle4_c,$results_array);
 }catch(Exception $e) {
   echo '<h1>{status: "failed", reason:"'.$e->getMessage().'"}</h1>';
@@ -68,9 +70,8 @@ $context_max=222000;
 try {
    $context_tick= new ContextTicket($context_min,$context_max);
    $happy_tick=new HappyTicket($context_tick);
-   ViewHappyTickets($context_min,$context_max);
-   $happy_tick->methodChampion();
-
+   $result=$happy_tick->resolveString();
+   ViewHappyTickets($context_min,$context_max,$result);
 }catch(Exception $e) {
   echo '<h1>{status: "failed", reason:"'.$e->getMessage().'"}</h1>';
 }
@@ -83,9 +84,9 @@ try {
   $context=new Context($myrow);
   $context->setMinMax($cont_min,$cont_max);
   $fibrow=new RowFibonache($context);
-  $result=$fibrow->getRowFibonache();
-  $result_str= implode(",", $result);
-  ViewFibonacheNumbers($cont_min,$cont_max,$result,$result_str);
+  $result=$fibrow->resolveString();
+  $row_len=count(explode(',',$result));
+  ViewFibonacheNumbers($cont_min,$cont_max,$row_len,$result);
 }catch(Exception $e) {
   echo '<h1>{status: "failed", reason:"'.$e->getMessage().'"}</h1>';
 }
@@ -119,27 +120,22 @@ function ViewSortTriangles($triangle1,$triangle1_a,$triangle1_b,$triangle1_c,$tr
   echo '<h3 style="color:blue;position:absolute; margin-left:550px;top:270px;">Triangle 3='.$triangle3.";side a=".$triangle3_a.";side b=".$triangle3_b.";side c=".$triangle3_c.';</h3>';
   echo '<h3 style="color:blue;position:absolute; margin-left:550px;top:290px;">Triangle 4='.$triangle4.";side a=".$triangle4_a.";side b=".$triangle4_b.";side c=".$triangle4_c.';</h3>';
   echo '<h2 style="color:blue;position:absolute;margin-left:550px;margin-top:160px;">Result:</h2>';
-foreach($results_array as $triangle => $area)
-  {
-    echo '<h2 style="color:blue;position:absolute;margin-left:550px;margin-top:190px;">Triangle=' .$triangle . ",&nbsp&nbsp&nbsp&nbspArea=" . $area."</h2>";
-    echo "<br>";
-    echo "<p></p>";  
-  }
-
+  echo $results_array;
 }
-function ViewHappyTickets($context_min,$context_max){
+function ViewHappyTickets($context_min,$context_max,$result){
 echo '<h1 style="color:blue;margin-left:1000px;">4.Happy tickets</h1>';
 echo '<h1 style="color:blue;position:absolute;margin-left:1000px;top:500px;">Result:</h1>';
 echo '<h2 style="color:blue;position:absolute; margin-left:1000px;top:420px;">Context min: '.$context_min.'</h2>';
 echo '<h2 style="color:blue;position:absolute;margin-left:1000px;top:450px;">Context max: '.$context_max.'</h2>';
+echo $result;
 }
-function ViewFibonacheNumbers($cont_min,$cont_max,$result,$result_str){
+function ViewFibonacheNumbers($cont_min,$cont_max,$row_len,$result){
 echo '<h1 style="color:blue;position:absolute;margin-left:1350px; top:610px;">Result:</h1>';
 echo '<h1 style="color:blue;margin-left:1350px;top:500px;">5.Fibonache numbers</h1>';
 echo '<h3 style="color:blue;position:absolute;margin-left:1350px; top:485px;">Row min:'.$cont_min.';</h3>';
 echo '<h3 style="color:blue;position:absolute;margin-left:1350px; top:525px;">Row max:'.$cont_max.';</h3>';
-echo '<h3 style="color:blue;position:absolute;margin-left:1350px; top:565px;">Row length:'.count($result).';</h3>';
-echo '<h2 style="color:blue;position:absolute;margin-left:1350px; top:650px;">'.$result_str."</h2>";
+echo '<h3 style="color:blue;position:absolute;margin-left:1350px; top:565px;">Row length:'.$row_len.';</h3>';
+echo '<h2 style="color:blue;position:absolute;margin-left:1350px; top:650px;">'.$result."</h2>";
 }
 
 

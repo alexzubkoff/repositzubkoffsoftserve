@@ -1,5 +1,5 @@
 <?php
-class HappyTicket{
+class HappyTicket extends Task{
       private $context_min;
       private $context_max;
       private $simple_count=0;
@@ -44,10 +44,15 @@ class HappyTicket{
     }
 
         }
-         
-    public function methodSimple(){
-     
-      for ($i=$this->context_min; $i<=$this->context_max; $i++){
+
+        protected function validate(){
+          if($this->context_min!==null&&$this->context_max!==null){
+              $this->is_valid=true;
+          }
+        }
+
+        protected function run(){
+        for ($i=$this->context_min; $i<=$this->context_max; $i++){
         $num=strval($i);
         $num1=substr($num,0,2);
         $num2=substr($num,3,5);
@@ -57,31 +62,24 @@ class HappyTicket{
             $this->simple_count++;
         }
       }  
-         return  $this->simple_count;
-    }
-    
-   public function methodNotSimple(){
-      $count=0;
-      for ($i=$this->context_min; $i<=$this->context_max; $i++){
-        $num=str_split(strval($i));
+        $count=0;
+      for ($j=$this->context_min; $j<=$this->context_max; $j++){
+        $num=str_split(strval($j));
         $sum1=$num[0]+$num[2]+$num[4];
         $sum2=$num[1]+$num[3]+$num[5];
          if ($sum1==$sum2){
            $this->notsimple_count++;
         }
       }
-         return  $this->notsimple_count;
-    }
 
-    public function methodChampion(){
-      
-         if($this->simple_count>$this->notsimple_count){
-          echo '<h2 style="color:blue;position:absolute;margin-left:1000px;top:550px;">Simple: '.$this->methodSimple().' tickets</h2>';
-          echo '<h2 style="color:blue;position:absolute;margin-left:1000px;top:600px;">Not simple: '.$this->methodNotSimple().' tickets</h2>';
+      if($this->simple_count>$this->notsimple_count){
+          $this->str_result.='<h2 style="color:blue;position:absolute;margin-left:1000px;top:550px;">Simple: '.$this->simple_count.' tickets</h2>';
+          $this->str_result.='<h2 style="color:blue;position:absolute;margin-left:1000px;top:600px;">Not simple: '.$this->notsimple_count.' tickets</h2>';
        }else{
-          echo '<h2 style="color:blue;position:absolute; margin-left:1000px;top:550px;">Not simple: '.$this->methodNotSimple().' tickets</h2>';
-          echo '<h2 style="color:blue;position:absolute; margin-left:1000px;top:600px;">Simple: '.$this->methodSimple().' tickets</h2>';
-      }
+          $this->str_result.='<h2 style="color:blue;position:absolute; margin-left:1000px;top:550px;">Not simple: '.$this->notsimple_count.' tickets</h2>';
+          $this->str_result.='<h2 style="color:blue;position:absolute; margin-left:1000px;top:600px;">Simple: '.$this->simple_count.' tickets</h2>';
+            }
+
     }
 
  }
