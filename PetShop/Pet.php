@@ -1,5 +1,5 @@
 <?php
-abstract class Petshop{
+abstract class Pet{
 	protected $price;
 	protected $color;
 	protected $is_fluffy=false;
