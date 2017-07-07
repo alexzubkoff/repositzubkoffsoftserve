@@ -2,13 +2,14 @@
 class HappyTicket extends Task{
       private $context_min;
       private $context_max;
-      private $simple_count=0;
-      private $notsimple_count=0;
+      private $simple_count = 0;
+      private $notsimple_count = 0;
 
-      function __construct(ContextTicket $other){
-         $env_a=$other->getContextMin();
-         $env_b=$other->getContextMax();
-        if($env_a<0||!is_numeric($env_a)||$env_b<0||!is_numeric($env_b)||strlen(strval($env_a))>6||strlen(strval($env_b))>6) {
+      function __construct(ContextTicket $other)
+      {
+         $env_a = $other->getContextMin();
+         $env_b = $other->getContextMax();
+        if ($env_a<0||!is_numeric($env_a)||$env_b<0||!is_numeric($env_b)||strlen(strval($env_a))>6||strlen(strval($env_b))>6) {
          throw new Exception("<h1>Value must be 0 or below and must has not more 6 digits</h1>");
         }else{
           $context_min=$other->getContextMin();
@@ -45,13 +46,15 @@ class HappyTicket extends Task{
 
         }
 
-        protected function validate(){
-          if($this->context_min!==null&&$this->context_max!==null){
+        protected function validate()
+        {
+          if ($this->context_min!==null&&$this->context_max!==null){
               $this->is_valid=true;
           }
         }
 
-        protected function run(){
+        protected function run()
+        {
         for ($i=$this->context_min; $i<=$this->context_max; $i++){
         $num=strval($i);
         $num1=substr($num,0,2);
@@ -72,7 +75,7 @@ class HappyTicket extends Task{
         }
       }
 
-      if($this->simple_count>$this->notsimple_count){
+      if ($this->simple_count>$this->notsimple_count){
           $this->str_result.='<h2 style="color:blue;position:absolute;margin-left:1000px;top:550px;">Simple: '.$this->simple_count.' tickets</h2>';
           $this->str_result.='<h2 style="color:blue;position:absolute;margin-left:1000px;top:600px;">Not simple: '.$this->notsimple_count.' tickets</h2>';
        }else{
@@ -85,19 +88,22 @@ class HappyTicket extends Task{
  }
 
  class ContextTicket{
-       private $min=0;
-       private $max=0;
+       private $min = 0;
+       private $max = 0;
 
-       function __construct($min,$max){
+      public function __construct($min,$max)
+       {
         
-        $this->min=$min;
-        $this->max=$max;
+        $this->min = $min;
+        $this->max = $max;
        }
         
-        public function getContextMin(){
+        public function getContextMin()
+        {
           return $this->min;
         }
-        public function getContextMax(){
+        public function getContextMax()
+        {
           return $this->max;
         }
      }

@@ -7,27 +7,27 @@ include "tasks/task4.php";
 include "tasks/task5.php";
 
 /////// 1.Chess board////////////////////////////
-$board_width=6;
-$board_heigth=4;
-$board_sign="*";
+$board_width = 6;
+$board_heigth = 4;
+$board_sign = "*";
 
 try {
-  $newchessboard=new ChessBoard($board_width,$board_heigth,$board_sign); 
-  $res=$newchessboard->resolveString();
+  $newchessboard = new ChessBoard($board_width,$board_heigth,$board_sign); 
+  $res = $newchessboard->resolveString();
   ViewChessBoard($board_width,$board_heigth,$board_sign,$res);
 }
 catch(Exception $e) {
   echo '<h1>{status: "failed", reason:"'.$e->getMessage().'"}</h1>';
 }
 ////////////////2.Enelyse envelopes/////////////////
-$envelope_a= 5.7;
-$envelope_b= 4.7;
-$envelope_c= 5.6;
-$envelope_d= 4.6;
+$envelope_a = 5.7;
+$envelope_b = 4.7;
+$envelope_c = 5.6;
+$envelope_d = 4.6;
 
 try {
-  $envelope1= new Envelope($envelope_a,$envelope_b);
-  $envelope2= new Envelope($envelope_c,$envelope_d);
+  $envelope1 = new Envelope($envelope_a,$envelope_b);
+  $envelope2 = new Envelope($envelope_c,$envelope_d);
   $result = $envelope1->compareTo($envelope2);
   $result = $envelope1->resolveString();
   ViewEnelyseEnvelopes($envelope_a,$envelope_b,$envelope_c,$envelope_d,$result);
@@ -36,56 +36,55 @@ try {
 }
 
 //////////////// 3.Sort triangles //////////////////////////////////////////
-$triangle1="ABC";
-$triangle1_a=4;
-$triangle1_b=5;
-$triangle1_c=6;
+$triangle1 = "ABC";
+$triangle1_a = 4;
+$triangle1_b = 5;
+$triangle1_c = 6;
 
-$triangle2="BCD";
-$triangle2_a=5;
-$triangle2_b=5;
-$triangle2_c=5;
+$triangle2 = "BCD";
+$triangle2_a = 5;
+$triangle2_b = 5;
+$triangle2_c = 5;
 
-$triangle3="CBD";
-$triangle3_a=4;
-$triangle3_b=4;
-$triangle3_c=4;
+$triangle3 = "CBD";
+$triangle3_a = 4;
+$triangle3_b = 4;
+$triangle3_c = 4;
 
-$triangle4="EBD";
-$triangle4_a=5;
-$triangle4_b=7;
-$triangle4_c=10;
+$triangle4 = "EBD";
+$triangle4_a = 5;
+$triangle4_b = 7;
+$triangle4_c = 10;
 try {
-  $triangles=new TrianglesSortedArray(array(new Triangle($triangle1,$triangle1_a,$triangle1_b,$triangle1_c),new Triangle($triangle2,$triangle2_a,$triangle2_b,$triangle2_c),new Triangle($triangle3,$triangle3_a,$triangle3_b,$triangle3_c),new Triangle($triangle4,$triangle4_a,$triangle4_b,$triangle4_c)));
-  $results_array=$triangles->resolveString();
+  $triangles = new TrianglesSortedArray(array(new Triangle($triangle1,$triangle1_a,$triangle1_b,$triangle1_c),new Triangle($triangle2,$triangle2_a,$triangle2_b,$triangle2_c),new Triangle($triangle3,$triangle3_a,$triangle3_b,$triangle3_c),new Triangle($triangle4,$triangle4_a,$triangle4_b,$triangle4_c)));
+  $results_array= $triangles->resolveString();
   ViewSortTriangles($triangle1,$triangle1_a,$triangle1_b,$triangle1_c,$triangle2,$triangle2_a,$triangle2_b,$triangle2_c,$triangle3,$triangle3_a,$triangle3_b,$triangle3_c,$triangle4,$triangle4_a,$triangle4_b,$triangle4_c,$results_array);
 }catch(Exception $e) {
   echo '<h1>{status: "failed", reason:"'.$e->getMessage().'"}</h1>';
 }
 
 //////////////////// 4. Happy tickets///////////////////////////////////////
-$context_min=112000;
-$context_max=222000;
+$context_min = 112000;
+$context_max = 222000;
 
 try {
-   $context_tick= new ContextTicket($context_min,$context_max);
-   $happy_tick=new HappyTicket($context_tick);
+   $context_tick = new ContextTicket($context_min,$context_max);
+   $happy_tick = new HappyTicket($context_tick);
    $result=$happy_tick->resolveString();
    ViewHappyTickets($context_min,$context_max,$result);
 }catch(Exception $e) {
   echo '<h1>{status: "failed", reason:"'.$e->getMessage().'"}</h1>';
 }
 ////////////////////// 5. Fibonache numbers///////////////////////////////
-$cont_min=0;
-$cont_max=10;
-$myrow=10;
+$cont_min = 0;
+$cont_max = 10;
+$myrow = 10;
 
 try {
-  $context=new Context($myrow);
-  $context->setMinMax($cont_min,$cont_max);
-  $fibrow=new RowFibonache($context);
-  $result=$fibrow->resolveString();
-  $row_len=count(explode(',',$result));
+  $context = new Context($cont_min ,$cont_max, $myrow);
+  $fibrow = new RowFibonache($context);
+  $result = $fibrow->resolveString();
+  $row_len = count(explode(',',$result));
   ViewFibonacheNumbers($cont_min,$cont_max,$row_len,$result);
 }catch(Exception $e) {
   echo '<h1>{status: "failed", reason:"'.$e->getMessage().'"}</h1>';
