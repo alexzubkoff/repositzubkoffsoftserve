@@ -45,10 +45,29 @@ class Petshop{
        
 		$length = count($this->pets_array);
 		for ($i = 0; $i<$length; $i++){
-          if (($this->pets_array[$i] instanceof Cat )&&($this->pets_array[$i]->isYourColor()==='white')){
+          if (($this->pets_array[$i]->getClassName()==="Cat" )&&(($this->pets_array[$i]->isYourColor()==='white')||$this->pets_array[$i]->isFluffy())){
           		$strwhitefluf.= $this->pets_array[$i]->toString();
 			}
-				return $strwhitefluf;
 		}
+				return $strwhitefluf;
+	}
+	public function getExpensivePet()
+	{    
+        $exp = $this->pets_array[0]->isYourPrice();
+        $strexp = "";
+		$length = count($this->pets_array);
+		for ($i = 1; $i<$length; $i++){
+        	if ($this->pets_array[$i]->isYourPrice()>=$exp){
+          		//$strwhitefluf.= $this->pets_array[$i]->toString();
+          		$exp = $this->pets_array[$i]->isYourPrice();
+			}
+		}	
+			for ($i = 0; $i<$length; $i++){
+        	if ($this->pets_array[$i]->isYourPrice()===$exp){
+          		
+          		$strexp.=$this->pets_array[$i]->toString();
+			}
+		}
+				return $strexp;
 	}
 }

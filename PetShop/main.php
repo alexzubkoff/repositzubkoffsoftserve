@@ -19,5 +19,7 @@ echo "<p><p/>";
 echo $petshop->moreAveragePrice();
 echo "<p><p/>";
 echo $petshop->whiteOrFluffyCats();
+echo "<p><p/>";
+echo $petshop->getExpensivePet();
 
 
