@@ -58,7 +58,6 @@ class Petshop{
 		$length = count($this->pets_array);
 		for ($i = 1; $i<$length; $i++){
         	if ($this->pets_array[$i]->isYourPrice()>=$exp){
-          		//$strwhitefluf.= $this->pets_array[$i]->toString();
           		$exp = $this->pets_array[$i]->isYourPrice();
 			}
 		}	

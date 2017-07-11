@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Petshop</title>
+  <script text="javascript" src="jquery-3.0.0.js"></script>
+</head>
+<body>
+<div id="petshop"></div>
+
+<script>
+$.ajax({
+  url: "main.php",
+  success: function(data){
+    $("#petshop").html(data);  
+  }
+});
+</script>
+
+</body>
+</html>

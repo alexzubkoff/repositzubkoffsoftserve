@@ -5,14 +5,17 @@ abstract class Pet{
 	protected $is_fluffy = false;
 	
    public  function __construct($color,$price){
-    	$this->color = $color;
-    	$this->price = $price;
+   	if (empty($color)||!is_numeric($price)||$price<=0){
+       		throw new Exception("Choose correct properties of the pet");
+       }else{
+    		$this->color = $color;
+    		$this->price = $price;
+    	}
     }
 	public function isYourPrice()
 	{
         return $this->price;
 	}
-
 	public function isYourColor()
 	{
         return $this->color;
