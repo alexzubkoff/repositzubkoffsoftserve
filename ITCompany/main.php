@@ -1,33 +1,57 @@
 <?php
-require_once "ITCompanyLib/ITCompanyGlobal.php";
-require_once "ITCompanyLib/ITCompanyRegional.php";
-require_once "ITCompanyLib/Person.php";
-require_once "ITCompanyLib/Candidate.php";
-require_once "ITCompanyLib/Worker.php";
-require_once "ITCompanyLib/Hr.php";
-require_once "ITCompanyLib/HardSpecialist.php";
-require_once "ITCompanyLib/Qc.php";
-require_once "ITCompanyLib/Pm.php";
-require_once "ITCompanyLib/Dev.php";
-require_once "ITCompanyLib/HrDepartment.php";
-require_once "ITCompanyLib/Team.php";
 
-$itcomp = new  ITCompanyRegional("SuperSoft","Ukraine","Dnepropetrovsk","Vokzalnaya/4");
+require_once 'ITCompany.php';
+require_once 'Person.php';
+require_once 'HRTeam.php';
+require_once 'Team.php';
+require_once 'Candidate.php';
+require_once 'Worker.php';
+require_once 'HardSpecialist.php';
+require_once 'HR.php';
+require_once 'PM.php';
+require_once 'QC.php';
+require_once 'Dev.php';
 
-$cand1 = new Candidate("Vasya","Vaskin","1289.10.21",120,true);
-$cand2 = new Candidate("Petya","Petkin","1287.10.21",340,true);
-$cand3 = new Candidate("Kolya","Kolkin","1276.10.21",321,true);
+$it_company = new ITCompany("SuperSoft", "Harkov");
+echo $it_company->getRecvisits();
+echo'<p><p/>';
 
-$hrdep = new HrDepartment();
-$hrdep->addCandidate($cand1);
-$hrdep->addCandidate($cand2);
-$hrdep->addCandidate($cand3);
+$cand1 = new Candidate('Vasya', 1200, 'JavaScript', 'QC');
+$cand2 = new Candidate('Kolya', 1300, 'C++', 'PM');
+$cand3 = new Candidate('Serg', 1100, 'Java', 'PM');
 
-$team1 = new Team("JavaScript");
+$worker1 = new PM('Alesha', 1200, 'PM', 'JavaScript');
+$worker2 = new QC('Petya', 1300, 'QC', 'Java');
 
-$itcomp->getCandidates($hrdep);
-$itcomp->addTeams($team1);
+$hr = new HRTeam();
+$hr->addCandidates($cand1);
+$hr->addCandidates($cand2);
+$hr->addCandidates($cand3);
+echo $hr->getCandidates();
+echo'<p><p/>';
 
-echo $itcomp->getItCompRecvisits();
-echo "<p><p/>";
-echo $itcomp->getTeams();
+$team1 = new Team('JavaScript', 'project');
+$team2 = new Team('Java', 'project');
+
+$team1->addTeamMember($worker1);
+$team2->addTeamMember($worker2);
+echo $team1->getTeamMembers();
+echo $team2->getTeamMembers();
+echo'<p><p/>';
+
+$team1->addNeeds("QC");
+$team2->addNeeds("PM");
+
+
+echo $team1->getNeedstoString();
+echo $team2->getNeedstoString();
+echo'<p><p/>';
+
+$it_company->addTeams($team1);
+$it_company->addTeams($team2);
+
+$it_company->hire($hr);
+echo $it_company->getTeams();
+echo'<p><p/>';
+
+echo $hr->getCandidates();
