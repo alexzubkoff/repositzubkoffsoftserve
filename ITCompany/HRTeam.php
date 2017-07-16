@@ -2,14 +2,20 @@
 
 class HRTeam {
 
-    protected $candidates = [];
+    private $candidates = [];
 
     public function addCandidates(Candidate $candidate) 
     {
         array_push($this->candidates, $candidate);
+        uasort($this->candidates, function($a, $b) {
+            if ($a->compareTo($b) === 0) {
+                return 0;
+            }
+            return $a->compareTo($b) ? 1 : -1;
+        });
     }
 
-    public function getPM(Team $team) 
+    private function getPM(Team $team) 
     {
         $candidate_real;
         $new_arr = [];
@@ -24,7 +30,7 @@ class HRTeam {
         return $candidate_real;
     }
 
-    public function getQC(Team $team) 
+    private function getQC(Team $team) 
     {
         $candidate_real;
         $new_arr = [];
@@ -39,7 +45,7 @@ class HRTeam {
         return $candidate_real;
     }
 
-    public function getDev(Team $team) 
+    private function getDev(Team $team) 
     {
         $candidate_real;
         $new_arr = [];
@@ -67,6 +73,26 @@ class HRTeam {
             $result.=$candidate->toString();
         }
         return $result;
+    }
+
+    public function canFindSpecialist(Team $team, $experience) 
+    {
+        foreach ($this->candidates as $candidate) {
+            if ($candidate->getProfile() === $team->getTeamName() && $candidate->getExperience() === $experience) {
+                return true;
+            }
+        }
+    }
+
+    public function getSpecialist(Team $team, $position) 
+    {
+        if ($position === 'PM') {
+            return $this->getPM($team);
+        } elseif ($position === 'QC') {
+            return $this->getQC($team);
+        } else {
+            return $this->getDev($team);
+        }
     }
 
 }

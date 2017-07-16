@@ -1,8 +1,8 @@
 <?php
 
-class Petshop {
+class Petshop implements JsonSerializable {
 
-    protected $pets_array = array();
+    public $pets_array = [];
 
     public function __construct(array $pets) {
         $length = count($pets);
@@ -16,57 +16,71 @@ class Petshop {
     }
 
     public function toString() {
-        $str = "";
+        $result = "";
         $length = count($this->pets_array);
         for ($i = 0; $i < $length; $i++) {
-            $str.= $this->pets_array[$i]->toString();
+            $result.= $this->pets_array[$i]->toString();
         }
-        return $str;
+        return $result;
     }
 
     public function getMoreThanAveragePricePets() {
-        $straver = "";
-        $aver = 0;
+        $result = "";
+        $average = 0;
         $length = count($this->pets_array);
         for ($i = 0; $i < $length; $i++) {
-            $aver+= $this->pets_array[$i]->isYourPrice();
+            $average+= $this->pets_array[$i]->getPrice();
         }
-        $aver = $aver / $length;
+        $average = $average / $length;
         for ($i = 0; $i < $length; $i++) {
-            if ($this->pets_array[$i]->isYourPrice() >= $aver) {
-                $straver.= $this->pets_array[$i]->toString();
+            if ($this->pets_array[$i]->getPrice() >= $average) {
+                $result.= $this->pets_array[$i]->toString();
             }
         }
-        return $straver;
+        return $result;
     }
 
     public function getWhiteOrFluffyCats() {
-        $strwhitefluf = "";
+        $result = "";
         $length = count($this->pets_array);
         for ($i = 0; $i < $length; $i++) {
-            if (($this->pets_array[$i]->getClassName() === "Cat" ) && (($this->pets_array[$i]->isYourColor() === 'white') || $this->pets_array[$i]->isFluffy())) {
-                $strwhitefluf.= $this->pets_array[$i]->toString();
+            if (($this->pets_array[$i]->getClassName() === "Cat" ) && (($this->pets_array[$i]->getColor() === 'white') || $this->pets_array[$i]->getFluffy())) {
+                $result.= $this->pets_array[$i]->toString();
             }
         }
-        return $strwhitefluf;
+        return $result;
     }
 
     public function getExpensivePets() {
-        $exp = $this->pets_array[0]->isYourPrice();
-        $strexp = "";
+        $exp = $this->pets_array[0]->getPrice();
+        $result = "";
         $length = count($this->pets_array);
         for ($i = 1; $i < $length; $i++) {
-            if ($this->pets_array[$i]->isYourPrice() >= $exp) {
-                $exp = $this->pets_array[$i]->isYourPrice();
+            if ($this->pets_array[$i]->getPrice() >= $exp) {
+                $exp = $this->pets_array[$i]->getPrice();
             }
         }
         for ($i = 0; $i < $length; $i++) {
-            if ($this->pets_array[$i]->isYourPrice() === $exp) {
+            if ($this->pets_array[$i]->getPrice() === $exp) {
 
-                $strexp.=$this->pets_array[$i]->toString();
+                $result.=$this->pets_array[$i]->toString();
             }
         }
-        return $strexp;
+        return $result;
+    }
+
+    public function jsonSerialize() {
+        $json_str = json_encode(get_object_vars($this));
+        return $json_str;
+    }
+
+    public static function jsonUnSerialize($json_data) {
+        $array = json_decode($json_data);
+        $result = "";
+        foreach ($array->pets_array as $key => $pets) {
+            $result.= $pets;
+        }
+        return $array->pets_array;
     }
 
 }

@@ -1,25 +1,31 @@
 <?php
 
-abstract class Pet {
+abstract class Pet implements JsonSerializable {
 
+    protected $type;
+    protected $name = "";
     protected $price = 0;
     protected $color = "";
-    protected $is_fluffy = false;
 
-    public function __construct($color, $price) {
+    public function __construct($name, $color, $price) {
         if (empty($color) || !is_numeric($price) || $price <= 0) {
             throw new Exception("Choose correct properties of the pet");
         } else {
+            $this->name = $name;
             $this->color = $color;
             $this->price = $price;
         }
     }
 
-    public function isYourPrice() {
+    public function getName() {
+        return $this->name;
+    }
+
+    public function getPrice() {
         return $this->price;
     }
 
-    public function isYourColor() {
+    public function getColor() {
         return $this->color;
     }
 
@@ -27,8 +33,13 @@ abstract class Pet {
         return get_class($this);
     }
 
-    public function isFluffy() {
-        return $this->is_fluffy;
+    public function jsonSerialize() {
+        $this->type = get_class($this);
+        return json_encode(get_object_vars($this));
+    }
+
+    public static function jsonUnSerialize($json_data) {
+        return json_decode($json_data);
     }
 
     public abstract function toString();

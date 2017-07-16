@@ -1,6 +1,6 @@
 <?php
 
-class HardSpecialist extends Worker {
+class HardSpecialist extends Worker implements IITWorker {
 
     public function doWork() 
     {
@@ -9,9 +9,14 @@ class HardSpecialist extends Worker {
 
     public function toString() 
     {
-        return get_class($this) . "=>Name: " . $this->name . "; salary: "
+        return $this->name . ", salary: "
                 . $this->salary . "; position: " . $this->position . "; team: "
                 . $this->team . ";<br/>";
+    }
+
+    public function doITWork() 
+    {
+        return "I do ITWork very good!";
     }
 
 }

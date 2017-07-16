@@ -1,6 +1,9 @@
 <?php
 
-class Candidate extends Person {
+require_once 'IComparable.php';
+require_once 'IITWorker.php';
+
+class Candidate extends Person implements IComparable, IITWorker {
 
     protected $wantsSalary = 0;
     protected $profile = "";
@@ -23,6 +26,7 @@ class Candidate extends Person {
     {
         return $this->name;
     }
+
     public function getExperience() 
     {
         return $this->experience;
@@ -33,6 +37,22 @@ class Candidate extends Person {
         return get_class($this) . "=>Name: " . $this->name . "; wants salary: "
                 . $this->wantsSalary . "; profile: " . $this->profile . "; experience: "
                 . $this->experience . ";<br/>";
+    }
+
+    public function compareTo(Candidate $other) 
+    {
+        if ($this->profile < $other->getProfile()) {
+            return -1;
+        } elseif ($this->profile > $other->getProfile()) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public function doITWork() 
+    {
+        return "I do ITWork good!";
     }
 
 }

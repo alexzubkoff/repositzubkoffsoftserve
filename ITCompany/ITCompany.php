@@ -4,8 +4,8 @@ class ITCompany {
 
     protected $name = "";
     protected $city = "";
-    protected $candidates = [];
-    protected $teams = [];
+    private $candidates = [];
+    private $teams = [];
     protected $needs = [];
 
     public function __construct($name, $city) 
@@ -16,7 +16,7 @@ class ITCompany {
 
     public function getRecvisits() 
     {
-        return get_class($this) . "=>name: " . $this->name . "; city: " . $this->city . ";<br/>";
+        return get_class($this) . ": " . $this->name . "; city: " . $this->city . ";<br/>";
     }
 
     public function addCandidates(array $candidates) 
@@ -35,21 +35,9 @@ class ITCompany {
             if (!$team->isComplete()) {
                 $needs = $team->getNeeds();
                 foreach ($needs as $need) {
-                    switch ($need) {
-                        case 'PM':
-                            $candidate = $hr->getPM($team);
-                            $team->addTeamMember(new PM($candidate->getName(), 1200, $need, $team->getTeamName()));
-                            break;
-                        case 'QC':
-                            $candidate = $hr->getQC($team);
-                            $team->addTeamMember(new QC($candidate->getName(), 1000, $need, $team->getTeamName()));
-                            break;
-                        case 'DEV':
-                            $candidate = $hr->getDev($team);
-                            $team->addTeamMember(new Dev($candidate->getName(), 1400, $need, $team->getTeamName()));
-                            break;
-                        default :
-                            break;
+                    if ($hr->canFindSpecialist($team, $need)) {
+                        $candidate = $hr->getSpecialist($team, $need);
+                        $team->addTeamMember(new $need($candidate->getName(), 1200, $need, $team->getTeamName()));
                     }
                 }
             }

@@ -69,8 +69,8 @@ class Team {
         foreach ($this->teamMembers as $member) {
             $result .= $member->toString();
         }
-        return get_class($this) . "=>name: " . $this->name . "; project: "
-                . $this->project . ";" . $result . "<br/>";
+        return get_class($this) . " : " . $this->name . "; project: "
+                . $this->project . ";<br/>" . $result . "<br/>";
     }
 
 }

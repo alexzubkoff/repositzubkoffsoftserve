@@ -6,12 +6,14 @@ class DataProvider {
         if (empty($file_name) || $obj === null) {
             throw new Exception("Choose filename or object");
         } else {
-            $text = serialize($obj);
+            //$text = serialize($obj);
+            $text_json = $obj->jsonSerialize();
+
             $file = fopen($file_name, "w");
             if (!$file) {
                 exit("Can not open the file");
             }
-            fwrite($file, $text);
+            fwrite($file, $text_json);
             fclose($file);
         }
     }
@@ -26,7 +28,7 @@ class DataProvider {
             }
             $text = fread($file, filesize($file_name));
             fclose($file);
-            $obj = unserialize($text);
+            $obj = PetShop::jsonUnSerialize($text);
         }
         return $obj;
     }
