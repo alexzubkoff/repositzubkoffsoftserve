@@ -15,51 +15,6 @@ class HRTeam {
         });
     }
 
-    private function getPM(Team $team) 
-    {
-        $candidate_real;
-        $new_arr = [];
-        foreach ($this->candidates as $candidate) {
-            if ($candidate->getProfile() === $team->getTeamName() && $candidate->getExperience() === 'PM') {
-                $candidate_real = $candidate;
-            } else {
-                $new_arr[count($new_arr)] = $candidate;
-            }
-        }
-        $this->candidates = $new_arr;
-        return $candidate_real;
-    }
-
-    private function getQC(Team $team) 
-    {
-        $candidate_real;
-        $new_arr = [];
-        foreach ($this->candidates as $candidate) {
-            if ($candidate->getProfile() === $team->getTeamName() && $candidate->getExperience() === 'QC') {
-                $candidate_real = $candidate;
-            } else {
-                $new_arr[count($new_arr)] = $candidate;
-            }
-        }
-        $this->candidates = $new_arr;
-        return $candidate_real;
-    }
-
-    private function getDev(Team $team) 
-    {
-        $candidate_real;
-        $new_arr = [];
-        foreach ($this->candidates as $candidate) {
-            if ($candidate->getProfile() === $team->getTeamName() && $candidate->getExperience() === 'DEV') {
-                $candidate_real = $candidate;
-            } else {
-                $new_arr[count($new_arr)] = $candidate;
-            }
-        }
-        $this->candidates = $new_arr;
-        return $candidate_real;
-    }
-
     public function getArrayCandidates() 
     {
 
@@ -74,7 +29,12 @@ class HRTeam {
         }
         return $result;
     }
-
+    
+    public function setCandidates(array $candidates) 
+    {
+        $this->candidates = $candidates;
+    }
+    
     public function canFindSpecialist(Team $team, $experience) 
     {
         foreach ($this->candidates as $candidate) {
@@ -87,11 +47,14 @@ class HRTeam {
     public function getSpecialist(Team $team, $position) 
     {
         if ($position === 'PM') {
-            return $this->getPM($team);
+            $pm_recruter = new PMRecruter();
+            return  $pm_recruter->getSpecialist($this,$team);
         } elseif ($position === 'QC') {
-            return $this->getQC($team);
+            $qc_recruter = new QCRecruter();
+            return  $qc_recruter->getSpecialist($this,$team);
         } else {
-            return $this->getDev($team);
+            $dev_recruter = new DevRecruter();
+            return  $dev_recruter->getSpecialist($this,$team);
         }
     }
 

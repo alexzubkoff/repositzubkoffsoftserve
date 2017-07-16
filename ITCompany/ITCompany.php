@@ -37,7 +37,7 @@ class ITCompany {
                 foreach ($needs as $need) {
                     if ($hr->canFindSpecialist($team, $need)) {
                         $candidate = $hr->getSpecialist($team, $need);
-                        $team->addTeamMember(new $need($candidate->getName(), 1200, $need, $team->getTeamName()));
+                        $team->addTeamMember(new $need($candidate->getName(),$candidate->getWantsSalary(), $need, $team->getTeamName()));
                     }
                 }
             }

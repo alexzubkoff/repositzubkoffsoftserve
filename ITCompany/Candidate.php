@@ -16,6 +16,11 @@ class Candidate extends Person implements IComparable, IITWorker {
         $this->experience = $experience;
         parent::__construct($name);
     }
+    
+    public function getWantsSalary() 
+    {
+        return $this->wantsSalary;
+    }
 
     public function getProfile() 
     {

@@ -57,6 +57,7 @@ echo $team2->getTeamMembers();
 echo'<p><p/>';
 
 $team1->addNeeds("QC");
+$team1->addNeeds("DEV");
 $team2->addNeeds("PM");
 $team2->addNeeds("DEV");
 
