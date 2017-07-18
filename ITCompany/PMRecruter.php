@@ -2,10 +2,10 @@
 
 require_once 'AbstractRecruter.php';
 
-class PMRecruter extends AbstractRecruter 
-{
+class PMRecruter extends AbstractRecruter {
 
-    public function getSpecialist(HRTeam $hr_team, Team $team) {
+    public function getSpecialist(HRTeam $hr_team, Team $team) 
+    {
         $candidate_real;
         $new_arr = [];
         $candidates = $hr_team->getArrayCandidates();

@@ -4,7 +4,8 @@ require_once 'AbstractRecruter.php';
 
 class QCRecruter extends AbstractRecruter {
 
-    public function getSpecialist(HRTeam $hr_team, Team $team) {
+    public function getSpecialist(HRTeam $hr_team, Team $team) 
+    {
         $candidate_real;
         $new_arr = [];
         $candidates = $hr_team->getArrayCandidates();

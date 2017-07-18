@@ -3,6 +3,7 @@
 class HRTeam {
 
     private $candidates = [];
+    private $arr_func = array("PMrecruter" => "PM", "QCRecruter" => "QC", "DevRecruter" => "DEV");
 
     public function addCandidates(Candidate $candidate) 
     {
@@ -15,12 +16,6 @@ class HRTeam {
         });
     }
 
-    public function getArrayCandidates() 
-    {
-
-        return $this->candidates;
-    }
-
     public function getCandidates() 
     {
         $result = "";
@@ -29,12 +24,18 @@ class HRTeam {
         }
         return $result;
     }
-    
+
+    public function getArrayCandidates() 
+    {
+
+        return $this->candidates;
+    }
+
     public function setCandidates(array $candidates) 
     {
         $this->candidates = $candidates;
     }
-    
+
     public function canFindSpecialist(Team $team, $experience) 
     {
         foreach ($this->candidates as $candidate) {
@@ -44,18 +45,36 @@ class HRTeam {
         }
     }
 
+    public function txtSerialize() 
+    {
+        $str = "";
+        foreach ($this->candidates as $candidate) {
+            $str.= $candidate->txtSerialize();
+        }
+        return $str;
+    }
+
+    public static function txtUnSerialize($str) 
+    {
+        $cand_arr = explode(";", $str);
+        array_pop($cand_arr);
+        $new_arr = [];
+        foreach ($cand_arr as $cand) {
+            array_push($new_arr, explode(":", $cand));
+        }
+        $length = count($new_arr);
+        $hr = new HRTeam();
+        for ($i = 0; $i < $length; $i++) {
+            $hr->addCandidates(new $new_arr[$i][0]($new_arr[$i][1], $new_arr[$i][2], $new_arr[$i][3], $new_arr[$i][4]));
+        }
+        return $hr;
+    }
+
     public function getSpecialist(Team $team, $position) 
     {
-        if ($position === 'PM') {
-            $pm_recruter = new PMRecruter();
-            return  $pm_recruter->getSpecialist($this,$team);
-        } elseif ($position === 'QC') {
-            $qc_recruter = new QCRecruter();
-            return  $qc_recruter->getSpecialist($this,$team);
-        } else {
-            $dev_recruter = new DevRecruter();
-            return  $dev_recruter->getSpecialist($this,$team);
-        }
+        $recruter = array_search($position, $this->arr_func);
+        $rec = new $recruter();
+        return $rec->getSpecialist($this, $team);
     }
 
 }

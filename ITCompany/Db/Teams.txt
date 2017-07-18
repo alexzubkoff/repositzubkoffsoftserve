@@ -1,0 +1,1 @@
+SuperSoft:Hatsapetovka:JavaScript:Alesha:1200:PM:JavaScript;Vasya:1200:QC:JavaScript;Vova:1200:DEV:JavaScript;Java:Petya:1300:QC:Java;Serg:1150:PM:Java;Leon:1150:DEV:Java;

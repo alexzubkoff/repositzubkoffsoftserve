@@ -1,7 +1,7 @@
 <?php
 
 class DataProvider {
-
+   
     public function writeFile($file_name, $obj) 
     {
         if (empty($file_name) || $obj === null) {
@@ -33,3 +33,5 @@ class DataProvider {
     }
 
 }
+
+

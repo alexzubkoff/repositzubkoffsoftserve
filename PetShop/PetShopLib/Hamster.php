@@ -4,15 +4,15 @@ class Hamster extends Pet {
 
     use IsFluffy;
 
-    protected $name = "Hamster";
-
-    public function __construct($color, $price) 
+    public function __construct($name = "Hamster", $color, $price, $is_fluffy) 
     {
         if (empty($color) || !is_numeric($price) || $price <= 0) {
             throw new Exception("Choose correct properties of the pet");
         } else {
+            $this->name = $name;
             $this->color = $color;
             $this->price = $price;
+            $this->is_fluffy = $is_fluffy;
         }
     }
 

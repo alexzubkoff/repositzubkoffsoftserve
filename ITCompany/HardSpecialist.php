@@ -9,7 +9,7 @@ class HardSpecialist extends Worker implements IITWorker {
 
     public function toString() 
     {
-        return $this->name . ", salary: "
+        return    $this->name . ", salary: "
                 . $this->salary . "; position: " . $this->position . "; team: "
                 . $this->team . ";<br/>";
     }
@@ -17,6 +17,13 @@ class HardSpecialist extends Worker implements IITWorker {
     public function doITWork() 
     {
         return "I do ITWork very good!";
+    }
+
+    public function txtSerialize() 
+    {
+        return    $this->name . ":"
+                . $this->salary . ":" . $this->position . ":"
+                . $this->team . ";";
     }
 
 }

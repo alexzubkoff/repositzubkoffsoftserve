@@ -16,6 +16,7 @@ require_once 'HR.php';
 require_once 'PM.php';
 require_once 'QC.php';
 require_once 'Dev.php';
+require_once 'DataProvider.php';
 
 
 $it_company = new ITCompany("SuperSoft", "Hatsapetovka");
@@ -73,4 +74,13 @@ $it_company->hire($hr);
 echo $it_company->getTeams();
 echo'<p><p/>';
 
+echo $it_company->getCandidates($hr);
+
+echo "<p><p/>";
+$dataprov = new DataProvider();
+$dataprov->writeFile("Db/Teams.txt", $it_company);
+$dataprov->writeFile("Db/Candidates.txt", $hr);
+$cand_txt = $dataprov->readFile("Db/Candidates.txt");
+$hr = HRTeam::txtUnSerialize($cand_txt);
+echo "<h4>Recreated from Candidates.txt</h4><br/>";
 echo $hr->getCandidates();

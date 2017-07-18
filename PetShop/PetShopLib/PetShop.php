@@ -1,21 +1,25 @@
 <?php
 
-class Petshop implements JsonSerializable {
+class Petshop {
 
     public $pets_array = [];
+    public static $array_pets = [];
 
-    public function __construct(array $pets) {
+    public function __construct(array $pets) 
+    {
         $length = count($pets);
         for ($i = 0; $i < $length; $i++) {
             $this->pets_array[$i] = $pets[$i];
         }
     }
 
-    public function getPets() {
+    public function getPets() 
+    {
         return $this->pets_array;
     }
 
-    public function toString() {
+    public function toString() 
+    {
         $result = "";
         $length = count($this->pets_array);
         for ($i = 0; $i < $length; $i++) {
@@ -24,7 +28,8 @@ class Petshop implements JsonSerializable {
         return $result;
     }
 
-    public function getMoreThanAveragePricePets() {
+    public function getMoreThanAveragePricePets() 
+         {
         $result = "";
         $average = 0;
         $length = count($this->pets_array);
@@ -40,7 +45,8 @@ class Petshop implements JsonSerializable {
         return $result;
     }
 
-    public function getWhiteOrFluffyCats() {
+    public function getWhiteOrFluffyCats() 
+    {
         $result = "";
         $length = count($this->pets_array);
         for ($i = 0; $i < $length; $i++) {
@@ -51,7 +57,8 @@ class Petshop implements JsonSerializable {
         return $result;
     }
 
-    public function getExpensivePets() {
+    public function getExpensivePets() 
+    {
         $exp = $this->pets_array[0]->getPrice();
         $result = "";
         $length = count($this->pets_array);
@@ -69,18 +76,32 @@ class Petshop implements JsonSerializable {
         return $result;
     }
 
-    public function jsonSerialize() {
-        $json_str = json_encode(get_object_vars($this));
-        return $json_str;
+    public function txtSerialize() 
+    {
+        $str = "";
+        foreach ($this->pets_array as $pet) {
+            $str .= $pet->txtSerialize();
+        }
+        return $str;
     }
 
-    public static function jsonUnSerialize($json_data) {
-        $array = json_decode($json_data);
-        $result = "";
-        foreach ($array->pets_array as $key => $pets) {
-            $result.= $pets;
+    public static function txtUnSerialize($str) 
+    {
+        $pets_arr = explode(";", $str);
+        array_pop($pets_arr);
+        $new_arr = [];
+        foreach ($pets_arr as $pet) {
+            array_push($new_arr, explode(":", $pet));
         }
-        return $array->pets_array;
+        $length = count($new_arr);
+        for ($i = 0; $i < $length; $i++) {
+            if (count($new_arr[$i]) === 4) {
+                array_push(self::$array_pets, new $new_arr[$i][0]($new_arr[$i][1], $new_arr[$i][2], $new_arr[$i][3]));
+            } else {
+                array_push(self::$array_pets, new $new_arr[$i][0]($new_arr[$i][1], $new_arr[$i][2], $new_arr[$i][3], $new_arr[$i][4]));
+            }
+        }
+        return self::$array_pets;
     }
 
 }

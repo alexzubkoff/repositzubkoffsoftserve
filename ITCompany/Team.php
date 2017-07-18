@@ -7,7 +7,7 @@ class Team {
     protected $teamMembers = [];
     protected $needs = [];
 
-    public function __construct($name, $project) 
+    public function __construct($name, $project)
     {
         $this->name = $name;
         $this->project = $project;
@@ -25,7 +25,6 @@ class Team {
 
     public function addNeeds($needs) 
     {
-
         array_push($this->needs, $needs);
     }
 
@@ -38,9 +37,8 @@ class Team {
         }
     }
 
-    public function getNeeds() 
+    public function getNeeds()
     {
-
         return $this->needs;
     }
 
@@ -71,6 +69,15 @@ class Team {
         }
         return get_class($this) . " : " . $this->name . "; project: "
                 . $this->project . ";<br/>" . $result . "<br/>";
+    }
+
+    public function txtSerialize() 
+    {
+        $result = "";
+        foreach ($this->teamMembers as $member) {
+            $result .= $member->txtSerialize();
+        }
+        return $this->name . ":" . $result;
     }
 
 }

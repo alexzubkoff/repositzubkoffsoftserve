@@ -10,25 +10,27 @@ require_once "DataProvider.php";
 
 try {
     $dog = new Dog("Jack", "grey", 100);
-    $cat = new Cat("Lisa", "white", 10);
-    $hamster = new Hamster("white", 5);
+    $cat = new Cat("Lisa", "white", 10, true);
+    $hamster = new Hamster("Hamster", "white", 5, true);
     $dog2 = new Dog("Laika", "black", 150);
-    $cat2 = new Cat("Luisa", "black", 13);
-    $hamster2 = new Hamster("brown", 7);
-    $cat3 = new Cat("Lulu", "black", 130);
-    $petshop = new PetShop(array($dog, $cat, $hamster, $dog2, $cat2, $hamster2, $cat3));
+    $cat2 = new Cat("Luisa", "black", 13, true);
+    $hamster2 = new Hamster("Hamster", "brown", 7, true);
+    $cat3 = new Cat("Lulu", "black", 130, true);
+    $cat4 = new Cat("Barsik", "blue", 100, true);
+    $petshop = new PetShop(array($dog, $cat, $hamster, $dog2, $cat2, $hamster2, $cat3, $cat4));
     ViewPetshop($petshop);
 } catch (Exception $e) {
     echo '<h1>' . $e->getMessage() . '</h1>';
 }
 
 $dataprov = new DataProvider();
-$dataprov->writeFile("Json.txt",$petshop );
-$obj = $dataprov->readFile("Json.txt");
-echo var_dump($obj);
+$dataprov->writeFile("DB.txt", $petshop);
+$text = $dataprov->readFile("DB.txt");
 
-//echo $obj->toString();
-
+$arr_pets = PetShop::txtUnSerialize($text);
+$petshop = new PetShop($arr_pets);
+echo "<h3>Objects recreated from DB.txt</h3><br/>";
+echo $petshop->toString();
 
 function ViewPetshop($petshop) 
 {
