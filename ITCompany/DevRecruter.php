@@ -10,7 +10,7 @@ class DevRecruter extends AbstractRecruter {
         $new_arr = [];
         $candidates = $hr_team->getArrayCandidates();
         foreach ($candidates as $candidate) {
-            if ($candidate->getProfile() === $team->getTeamName() && $candidate->getExperience() === 'DEV') {
+            if ($candidate->getProfile() === $team->getTeamProject() && $candidate->getExperience() === 'DEV') {
                 $candidate_real = $candidate;
             } else {
                 $new_arr[count($new_arr)] = $candidate;

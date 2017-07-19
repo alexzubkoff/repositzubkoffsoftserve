@@ -1,6 +1,6 @@
 <?php
 
-class HRTeam {
+class HRTeam implements JsonSerializable{
 
     private $candidates = [];
     private $arr_func = array("PMrecruter" => "PM", "QCRecruter" => "QC", "DevRecruter" => "DEV");
@@ -9,10 +9,7 @@ class HRTeam {
     {
         array_push($this->candidates, $candidate);
         uasort($this->candidates, function($a, $b) {
-            if ($a->compareTo($b) === 0) {
-                return 0;
-            }
-            return $a->compareTo($b) ? 1 : -1;
+            return $a->compareTo($b);
         });
     }
 
@@ -39,7 +36,7 @@ class HRTeam {
     public function canFindSpecialist(Team $team, $experience) 
     {
         foreach ($this->candidates as $candidate) {
-            if ($candidate->getProfile() === $team->getTeamName() && $candidate->getExperience() === $experience) {
+            if ($candidate->getProfile() === $team->getTeamProject() && $candidate->getExperience() === $experience) {
                 return true;
             }
         }
@@ -77,4 +74,22 @@ class HRTeam {
         return $rec->getSpecialist($this, $team);
     }
 
+    public function jsonSerialize() {
+        return $this->candidates;
+    }
+    
+    public static function jsonUnSerialize(array $candidates) {
+        $arrCandidates = [];
+        foreach ($candidates as $key => $candidate) {
+            array_push($arrCandidates,new Candidate($candidate['name'],
+                       $candidate['wantsSalary'],$candidate['profile'],
+                       $candidate['experience']));
+        }
+        $hr = new HRTeam();
+        foreach ($arrCandidates as $candidate) {
+            $hr->addCandidates($candidate);
+        }
+        return  $hr;
+    }
+    
 }

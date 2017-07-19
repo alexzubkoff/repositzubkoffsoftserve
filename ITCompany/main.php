@@ -17,6 +17,7 @@ require_once 'PM.php';
 require_once 'QC.php';
 require_once 'Dev.php';
 require_once 'DataProvider.php';
+require_once 'DataProviderJson.php';
 
 
 $it_company = new ITCompany("SuperSoft", "Hatsapetovka");
@@ -32,8 +33,8 @@ $cand6 = new Candidate('Vova', 1200, 'JavaScript', 'DEV');
 $cand7 = new Candidate('Slava', 1300, 'C++', 'PM');
 $cand8 = new Candidate('Leon', 1150, 'Java', 'DEV');
 
-$worker1 = new PM('Alesha', 1200, 'PM', 'JavaScript');
-$worker2 = new QC('Petya', 1300, 'QC', 'Java');
+$worker1 = new PM('Alesha', 1200, 'PM', 'JavaScriptMonsters');
+$worker2 = new QC('Petya', 1300, 'QC', 'JavaSuper');
 
 $hr = new HRTeam();
 $hr->addCandidates($cand1);
@@ -48,8 +49,8 @@ $hr->addCandidates($cand8);
 echo $hr->getCandidates();
 echo'<p><p/>';
 
-$team1 = new Team('JavaScript', 'project');
-$team2 = new Team('Java', 'project');
+$team1 = new Team('JavaScriptMonsters', 'JavaScript');
+$team2 = new Team('JavaSuper', 'Java');
 
 $team1->addTeamMember($worker1);
 $team2->addTeamMember($worker2);
@@ -84,3 +85,22 @@ $cand_txt = $dataprov->readFile("Db/Candidates.txt");
 $hr = HRTeam::txtUnSerialize($cand_txt);
 echo "<h4>Recreated from Candidates.txt</h4><br/>";
 echo $hr->getCandidates();
+
+$dataprovjson = new DataProviderJson();
+$dataprovjson->writeFile("Db/Candidates.json", $hr);
+$candidates = $dataprovjson->readFile("Db/Candidates.json");
+echo "<p><p/>";
+$hrNew= HRTeam::jsonUnSerialize($candidates);
+echo "<h4>Recreated from Candidates.json</h4><br/>";
+echo $hrNew->getCandidates();
+
+echo "<p><p/>";
+$dataprovjson->writeFile("Db/Teams.json", $it_company);
+$itComp = $dataprovjson->readFile("Db/Teams.json");
+
+
+
+    
+        
+
+

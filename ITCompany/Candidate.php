@@ -3,20 +3,20 @@
 require_once 'IComparable.php';
 require_once 'IITWorker.php';
 
-class Candidate extends Person implements IComparable, IITWorker {
+class Candidate extends Person implements IComparable, IITWorker,  JsonSerializable {
 
     protected $wantsSalary = 0;
     protected $profile = "";
     protected $experience = "";
 
     public function __construct($name, $wantsSalary, $profile, $experience) 
-    {
+    {   
+        parent::__construct($name);
         $this->wantsSalary = $wantsSalary;
         $this->profile = $profile;
         $this->experience = $experience;
-        parent::__construct($name);
     }
-
+    
     public function getWantsSalary() 
     {
         return $this->wantsSalary;
@@ -65,6 +65,11 @@ class Candidate extends Person implements IComparable, IITWorker {
         return get_class($this) . ":" . $this->name . ":"
                 . $this->wantsSalary . ":" . $this->profile . ":"
                 . $this->experience . ";";
+    }
+   
+    public function jsonSerialize() 
+    {
+        return get_object_vars($this);
     }
 
 }

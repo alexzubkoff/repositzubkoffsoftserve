@@ -1,6 +1,6 @@
 <?php
 
-class Team {
+class Team implements JsonSerializable{
 
     protected $name = "";
     protected $project = "";
@@ -60,6 +60,11 @@ class Team {
     {
         return $this->name;
     }
+    
+    public function getTeamProject() 
+    {
+        return $this->project;
+    }
 
     public function getTeamMembers() 
     {
@@ -78,6 +83,12 @@ class Team {
             $result .= $member->txtSerialize();
         }
         return $this->name . ":" . $result;
+    }
+
+    public function jsonSerialize() 
+    {
+        //return $this->teamMembers;
+        return get_object_vars($this);
     }
 
 }

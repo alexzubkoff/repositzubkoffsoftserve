@@ -1,6 +1,6 @@
 <?php
 
-class ITCompany {
+class ITCompany implements JsonSerializable {
 
     protected $name = "";
     protected $city = "";
@@ -29,7 +29,8 @@ class ITCompany {
         array_push($this->teams, $team);
     }
 
-    public function hire(HRTeam $hr) {
+    public function hire(HRTeam $hr) 
+    {
         foreach ($this->teams as $team) {
             if (!$team->isComplete()) {
                 $needs = $team->getNeeds();
@@ -70,6 +71,45 @@ class ITCompany {
         }
         return $this->name . ":"
                 . $this->city . ":" . $result;
+    }
+
+    public function jsonSerialize() 
+    {
+        return get_object_vars($this);
+    }
+
+    public static function jsonUnSerialize(array $teams) 
+    {
+        $itNew = null;
+        $itNewName = "";
+        $itNewCity = "";
+        foreach ($itComp as $key => $value) {
+            if ($key === "name") {
+                $itNewName = $value;
+            }
+            if ($key === "city") {
+                $itNewCity = $value;
+            }
+            echo $key . ":" . $value . "<br/>";
+        }
+        $itNew = new ITCompany($itNewName, $itNewCity);
+
+        foreach ($itComp['teams'] as $key => $value) {
+            foreach ($value as $key => $value) {
+                echo $key . ":" . $value . "<br/>";
+            }
+        }
+        /*
+          foreach ($itComp['teams'][0] as $key => $value) {
+          echo $key.":".$value."<br/>";
+          }
+          foreach ($itComp['teams'][0]['teamMembers'] as $key => $value) {
+          echo $key.":".$value."<br/>";
+          }
+          foreach ($itComp['teams'][0]['teamMembers'][0] as $key => $value) {
+          echo $key.":".$value."<br/>";
+          } */
+        return  $itNew;
     }
 
 }

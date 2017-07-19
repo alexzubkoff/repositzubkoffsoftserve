@@ -1,6 +1,6 @@
 <?php
 
-class HardSpecialist extends Worker implements IITWorker {
+class HardSpecialist extends Worker implements IITWorker,  JsonSerializable {
 
     public function doWork() 
     {
@@ -24,6 +24,11 @@ class HardSpecialist extends Worker implements IITWorker {
         return    $this->name . ":"
                 . $this->salary . ":" . $this->position . ":"
                 . $this->team . ";";
+    }
+
+    public function jsonSerialize() 
+    {
+        return get_object_vars($this);
     }
 
 }

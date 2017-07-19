@@ -1,1 +1,1 @@
-Candidate:Andrey:1250:Java:QC;Candidate:Vlad:1300:C++:DEV;Candidate:Kolya:1000:C++:PM;Candidate:Slava:1300:C++:PM;
+Candidate:Kolya:1000:C++:PM;Candidate:Vlad:1300:C++:DEV;Candidate:Slava:1300:C++:PM;Candidate:Andrey:1250:Java:QC;

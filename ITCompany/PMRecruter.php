@@ -10,7 +10,7 @@ class PMRecruter extends AbstractRecruter {
         $new_arr = [];
         $candidates = $hr_team->getArrayCandidates();
         foreach ($candidates as $candidate) {
-            if ($candidate->getProfile() === $team->getTeamName() && $candidate->getExperience() === 'PM') {
+            if ($candidate->getProfile() === $team->getTeamProject() && $candidate->getExperience() === 'PM') {
                 $candidate_real = $candidate;
             } else {
                 $new_arr[count($new_arr)] = $candidate;
