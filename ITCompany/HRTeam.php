@@ -70,8 +70,8 @@ class HRTeam implements JsonSerializable{
     public function getSpecialist(Team $team, $position) 
     {
         $recruter = array_search($position, $this->arr_func);
-        $rec = new $recruter();
-        return $rec->getSpecialist($this, $team);
+        $recrut = new $recruter();
+        return $recrut->getSpecialist($this, $team);
     }
 
     public function jsonSerialize() {

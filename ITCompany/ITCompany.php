@@ -36,8 +36,8 @@ class ITCompany implements JsonSerializable {
                 $needs = $team->getNeeds();
                 foreach ($needs as $need) {
                     if ($hr->canFindSpecialist($team, $need)) {
-                        $candidate = $hr->getSpecialist($team, $need);
-                        $team->addTeamMember(new $need($candidate->getName(), $candidate->getWantsSalary(), $need, $team->getTeamName()));
+                        $specialist = $hr->getSpecialist($team, $need);
+                        $team->addTeamMember($specialist);
                     }
                 }
             }
