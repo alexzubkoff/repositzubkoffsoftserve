@@ -1,1 +1,1 @@
-SuperSoft:Hatsapetovka:JavaScriptMonsters:Alesha:1200:PM:JavaScriptMonsters;Vasya:1200:QC:JavaScriptMonsters;Vova:1200:DEV:JavaScriptMonsters;JavaSuper:Petya:1300:QC:JavaSuper;Serg:1150:PM:JavaSuper;Leon:1150:DEV:JavaSuper;
+SuperSoft:Hatsapetovka:JavaScriptMonsters:Alesha:1200:PM:JavaScriptMonsters;JavaSuper:Petya:1300:QC:JavaSuper;
