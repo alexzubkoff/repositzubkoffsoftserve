@@ -4,6 +4,10 @@ class Petshop {
 
     public $pets_array = [];
     public static $array_pets = [];
+    protected static $host = "127.0.0.1:3306";
+    protected static $db = "zubkov";
+    protected static $user = "root";
+    protected static $pass = "";
 
     public function __construct(array $pets) 
     {
@@ -29,7 +33,7 @@ class Petshop {
     }
 
     public function getMoreThanAveragePricePets() 
-         {
+    {
         $result = "";
         $average = 0;
         $length = count($this->pets_array);
@@ -102,6 +106,28 @@ class Petshop {
             }
         }
         return self::$array_pets;
+    }
+
+    public static function getDBConnection() 
+    {
+        try {
+            $connection = new PDO('mysql:host=' . self::$host . ';dbname=' . self::$db . ';charset=utf8', self::$user, self::$pass);
+            $sth = $connection->prepare("SELECT * FROM Pets");
+            $sth->execute();
+            $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($result as $key => $value) {
+                foreach ($value as $key => $v) {
+                    if ($value['type'] === "Dog") {
+                        self::$array_pets[] = new $value['type']($value['name'], $value['color'], $value['price']);
+                    } else {
+                        self::$array_pets[] = new $value['type']($value['name'], $value['color'], $value['price'], $value['fluffiness']);
+                    }
+                }
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e;
+        }
+        return new PetShop(self::$array_pets);
     }
 
 }
