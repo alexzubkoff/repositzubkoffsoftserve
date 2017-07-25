@@ -37,6 +37,28 @@ footer {background: #aaa;color:white;}
     .article {-webkit-flex:5 0px;flex:5 0px;-webkit-order:2;order:2;}
     footer {-webkit-order:3;order:3;}
 }
+table {
+    width:100%;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+table tr:nth-child(even) {
+    background-color: #eee;
+}
+table tr:nth-child(odd) {
+   background-color:#fff;
+}
+table th {
+    background-color: black;
+    color: white;
+}
 </style>
 </head>
 
@@ -48,14 +70,27 @@ footer {background: #aaa;color:white;}
           
 <nav class="nav">
 <ul>
-  <li><h1><a href="/PetShop/">All pets in the shop</a></h1></li>
+    <li><h1><a href="/PetShop/">All pets in the shop</a></h1></li>
   <li><h1><a href="/PetShop/morethanaver">More than average price</a></h1></li>
   <li><h1><a href="/PetShop/catswhitefluffy">Cats white and fluffy</a></h1></li>
   <li><h1><a href="/PetShop/mostexpensive">Most expensive pets</a></h1></li>
 </ul>
 </nav>       
-<article class="article" > 
+
+<article class="article">
+    <table>
+        <tr>
+    <th>id</th>
+    <th>Type</th>
+    <th>Name</th> 
+    <th>Color</th>
+    <th>Price</th>
+    <th>Fluffiness</th>
+  </tr>
+        <tbody>
 <?php include 'application/views/'.$content_view; ?>
+            </tbody>
+       </table>
 </article>
        
 <footer>Copyright &copy; Alexander Zubkov: alexzubkoff123@gmail.com</footer>

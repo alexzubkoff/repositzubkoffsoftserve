@@ -4,6 +4,7 @@ class Petshop {
 
     public $pets_array = [];
     public static $array_pets = [];
+    
     protected static $host = "127.0.0.1:3306";
     protected static $db = "zubkov";
     protected static $user = "root";
@@ -13,7 +14,7 @@ class Petshop {
     {
         $length = count($pets);
         for ($i = 0; $i < $length; $i++) {
-            $this->pets_array[$i] = $pets[$i];
+            $this->pets_array[] = $pets[$i];
         }
     }
 
@@ -27,7 +28,7 @@ class Petshop {
         $result = "";
         $length = count($this->pets_array);
         for ($i = 0; $i < $length; $i++) {
-            $result.= $this->pets_array[$i]->toString();
+            $result .= $this->pets_array[$i]->toString();
         }
         return $result;
     }
@@ -43,7 +44,7 @@ class Petshop {
         $average = $average / $length;
         for ($i = 0; $i < $length; $i++) {
             if ($this->pets_array[$i]->getPrice() >= $average) {
-                $result.= $this->pets_array[$i]->toString();
+                $result .= $this->pets_array[$i]->toString();
             }
         }
         return $result;
@@ -55,7 +56,7 @@ class Petshop {
         $length = count($this->pets_array);
         for ($i = 0; $i < $length; $i++) {
             if (($this->pets_array[$i]->getClassName() === "Cat" ) && (($this->pets_array[$i]->getColor() === 'white') || $this->pets_array[$i]->getFluffy())) {
-                $result.= $this->pets_array[$i]->toString();
+                $result .= $this->pets_array[$i]->toString();
             }
         }
         return $result;
@@ -74,7 +75,7 @@ class Petshop {
         for ($i = 0; $i < $length; $i++) {
             if ($this->pets_array[$i]->getPrice() === $exp) {
 
-                $result.=$this->pets_array[$i]->toString();
+               $result = $this->pets_array[$i]->toString();
             }
         }
         return $result;
@@ -115,19 +116,19 @@ class Petshop {
             $sth = $connection->prepare("SELECT * FROM Pets");
             $sth->execute();
             $result = $sth->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($result as $key => $value) {
-                foreach ($value as $key => $v) {
-                    if ($value['type'] === "Dog") {
-                        self::$array_pets[] = new $value['type']($value['name'], $value['color'], $value['price']);
+            foreach ($result as $key => $prop) {
+                    if ($prop['type'] === "Dog") {
+                        array_push(self::$array_pets,new $prop['type']($prop['name'], $prop['color'], $prop['price']));
                     } else {
-                        self::$array_pets[] = new $value['type']($value['name'], $value['color'], $value['price'], $value['fluffiness']);
+                        array_push(self::$array_pets,new $prop['type']($p['name'], $prop['color'], $prop['price'], $prop['fluffiness']));
                     }
                 }
-            }
         } catch (PDOException $e) {
             echo "Error: " . $e;
         }
         return new PetShop(self::$array_pets);
+        
     }
+    
 
 }

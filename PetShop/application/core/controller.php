@@ -1,18 +1,17 @@
 <?php
 
-class Controller {
+abstract class Controller {
 
     public $model;
     public $view;
 
-    function __construct() 
+    public function __construct() 
     {
         $this->view = new View();
     }
 
-    function action_index() 
-    {
-        
-    }
-
+    abstract public function action_index();
+    abstract public function action_morethanaver();
+    abstract public function action_catswhitefluffy();
+    abstract public function action_mostexpensive();
 }

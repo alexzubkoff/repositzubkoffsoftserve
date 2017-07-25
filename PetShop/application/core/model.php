@@ -1,11 +1,12 @@
 <?php
 
-class Model 
-{
+abstract class Model {
 
-    public function get_data() 
-    {
-        
-    }
+    abstract public function getAllPets();
 
+    abstract public function getMoreThanAveragePrice();
+
+    abstract public function getCatsWhiteFluffy();
+
+    abstract public function getMostExpensivePets();
 }
