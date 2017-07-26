@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style> 
 .flex-container {
     display: -webkit-flex;
@@ -68,19 +71,18 @@ table th {
   <h1>PetShop</h1>
 </header>
           
-<nav class="nav">
+<nav class='nav'>
 <ul>
     <li><h1><a href="/PetShop/">All pets in the shop</a></h1></li>
-  <li><h1><a href="/PetShop/morethanaver">More than average price</a></h1></li>
-  <li><h1><a href="/PetShop/catswhitefluffy">Cats white and fluffy</a></h1></li>
-  <li><h1><a href="/PetShop/mostexpensive">Most expensive pets</a></h1></li>
+  <li><h1><a  href="/PetShop/morethanaver">More than average price</a></h1></li>
+  <li><h1><a  href="/PetShop/catswhitefluffy">Cats white and fluffy</a></h1></li>
+  <li><h1><a  href="/PetShop/mostexpensive">Most expensive pets</a></h1></li>
 </ul>
 </nav>       
 
 <article class="article">
     <table>
         <tr>
-    <th>id</th>
     <th>Type</th>
     <th>Name</th> 
     <th>Color</th>
@@ -88,7 +90,7 @@ table th {
     <th>Fluffiness</th>
   </tr>
         <tbody>
-<?php include 'application/views/'.$content_view; ?>
+<?php include 'application/views/'.$contentView; ?>
             </tbody>
        </table>
 </article>

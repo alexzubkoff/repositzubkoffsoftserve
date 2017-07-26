@@ -8,8 +8,3 @@ require_once "PetShopLib/Cat.php";
 require_once "PetShopLib/Hamster.php";
 require_once "DataProvider.php";
 
-$dataprov = new DataProvider();
-$text = $dataprov->readFile("DB.txt");
-
-$arr_pets = PetShop::txtUnSerialize($text);
-$petshop = new PetShop($arr_pets);

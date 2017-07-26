@@ -2,29 +2,43 @@
 
 class Petshop {
 
-    public $pets_array = [];
-    public static $array_pets = [];
-    
+    protected $pets_array = [];
+    protected static $array_pets = [];
     protected static $host = "127.0.0.1:3306";
     protected static $db = "zubkov";
     protected static $user = "root";
     protected static $pass = "";
 
-    public function __construct(array $pets) 
-    {
+    public function __construct(array $pets) {
         $length = count($pets);
         for ($i = 0; $i < $length; $i++) {
             $this->pets_array[] = $pets[$i];
         }
     }
 
-    public function getPets() 
-    {
-        return $this->pets_array;
+    public function getPets() {
+        $arrPetsAssoc = [];
+
+        foreach ($this->pets_array as $pet) {
+            if ($pet->getClassName() === 'Dog') {
+                $arrPetsAssoc[] = ['type' => $pet->getClassName(),
+                    'name' => $pet->getName(),
+                    'color' => $pet->getColor(),
+                    'price' => $pet->getPrice(),
+                    'fluffiness' => '0'];
+            } else {
+                $arrPetsAssoc[] = ['type' => $pet->getClassName(),
+                    'name' => $pet->getName(),
+                    'color' => $pet->getColor(),
+                    'price' => $pet->getPrice(),
+                    'fluffiness' => $pet->getFluffy()];
+            }
+        }
+
+        return $arrPetsAssoc;
     }
 
-    public function toString() 
-    {
+    public function toString() {
         $result = "";
         $length = count($this->pets_array);
         for ($i = 0; $i < $length; $i++) {
@@ -33,56 +47,79 @@ class Petshop {
         return $result;
     }
 
-    public function getMoreThanAveragePricePets() 
-    {
-        $result = "";
+    public function getMoreThanAveragePricePets() {
+        $arrResult = [];
         $average = 0;
-        $length = count($this->pets_array);
-        for ($i = 0; $i < $length; $i++) {
-            $average+= $this->pets_array[$i]->getPrice();
+        foreach ($this->pets_array as $pet) {
+            $average += $pet->getPrice();
         }
-        $average = $average / $length;
-        for ($i = 0; $i < $length; $i++) {
-            if ($this->pets_array[$i]->getPrice() >= $average) {
-                $result .= $this->pets_array[$i]->toString();
+        $average = $average / count($this->pets_array);
+        foreach ($this->pets_array as $pet) {
+            if ($pet->getPrice() > $average) {
+                if ($pet->getClassName() === 'Dog') {
+                    $arrResult[] = ['type' => $pet->getClassName(),
+                        'name' => $pet->getName(),
+                        'color' => $pet->getColor(),
+                        'price' => $pet->getPrice(),
+                        'fluffiness' => '0'];
+                } else {
+                    $arrResult[] = ['type' => $pet->getClassName(),
+                        'name' => $pet->getName(),
+                        'color' => $pet->getColor(),
+                        'price' => $pet->getPrice(),
+                        'fluffiness' => $pet->getFluffy()];
+                }
             }
         }
-        return $result;
+
+        return $arrResult;
     }
 
-    public function getWhiteOrFluffyCats() 
-    {
-        $result = "";
-        $length = count($this->pets_array);
-        for ($i = 0; $i < $length; $i++) {
-            if (($this->pets_array[$i]->getClassName() === "Cat" ) && (($this->pets_array[$i]->getColor() === 'white') || $this->pets_array[$i]->getFluffy())) {
-                $result .= $this->pets_array[$i]->toString();
+    public function getWhiteOrFluffyCats() {
+        $arrResult = [];
+        foreach ($this->pets_array as $pet) {
+            if (($pet->getClassName() === "Cat" ) && (($pet->getColor() === 'white') || $pet->getFluffy())) {
+                $arrResult[] = ['type' => $pet->getClassName(),
+                                'name' => $pet->getName(),
+                                'color' => $pet->getColor(),
+                                'price' => $pet->getPrice(),
+                                'fluffiness' => $pet->getFluffy()];
             }
         }
-        return $result;
+
+        return $arrResult;
     }
 
-    public function getExpensivePets() 
-    {
+    public function getExpensivePets() {
         $exp = $this->pets_array[0]->getPrice();
-        $result = "";
+        $arrResult = [];
         $length = count($this->pets_array);
         for ($i = 1; $i < $length; $i++) {
             if ($this->pets_array[$i]->getPrice() >= $exp) {
                 $exp = $this->pets_array[$i]->getPrice();
             }
         }
-        for ($i = 0; $i < $length; $i++) {
-            if ($this->pets_array[$i]->getPrice() === $exp) {
-
-               $result = $this->pets_array[$i]->toString();
+        foreach ($this->pets_array as $pet) {
+            if ($pet->getPrice() === $exp) {
+                if ($pet->getClassName() === 'Dog') {
+                    $arrResult[] = ['type' => $pet->getClassName(),
+                                    'name' => $pet->getName(),
+                                    'color' => $pet->getColor(),
+                                    'price' => $pet->getPrice(),
+                                     'fluffiness' => '0'];
+                } else {
+                    $arrResult[] = ['type' => $pet->getClassName(),
+                                    'name' => $pet->getName(),
+                                    'color' => $pet->getColor(),
+                                    'price' => $pet->getPrice(),
+                                    'fluffiness' => $pet->getFluffy()];
+                }
             }
         }
-        return $result;
+        return $arrResult;
     }
 
-    public function txtSerialize() 
-    {
+    public function txtSerialize() {
         $str = "";
         foreach ($this->pets_array as $pet) {
             $str .= $pet->txtSerialize();
@@ -90,8 +127,7 @@ class Petshop {
         return $str;
     }
 
-    public static function txtUnSerialize($str) 
-    {
+    public static function txtUnSerialize($str) {
         $pets_arr = explode(";", $str);
         array_pop($pets_arr);
         $new_arr = [];
@@ -106,29 +142,26 @@ class Petshop {
                 array_push(self::$array_pets, new $new_arr[$i][0]($new_arr[$i][1], $new_arr[$i][2], $new_arr[$i][3], $new_arr[$i][4]));
             }
         }
-        return self::$array_pets;
+        return new PetShop(self::$array_pets);
     }
 
-    public static function getDBConnection() 
-    {
+    public static function getDataMySqlDb() {
         try {
             $connection = new PDO('mysql:host=' . self::$host . ';dbname=' . self::$db . ';charset=utf8', self::$user, self::$pass);
             $sth = $connection->prepare("SELECT * FROM Pets");
             $sth->execute();
             $result = $sth->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($result as $key => $prop) {
-                    if ($prop['type'] === "Dog") {
-                        array_push(self::$array_pets,new $prop['type']($prop['name'], $prop['color'], $prop['price']));
-                    } else {
-                        array_push(self::$array_pets,new $prop['type']($p['name'], $prop['color'], $prop['price'], $prop['fluffiness']));
-                    }
+            foreach ($result as $animal) {
+                if ($animal['type'] === "Dog") {
+                    self::$array_pets[] = new $animal['type']($animal['name'], $animal['color'], $animal['price']);
+                } else {
+                    self::$array_pets[] = new $animal['type']($animal['name'], $animal['color'], $animal['price'], $animal['fluffiness']);
                 }
+            }
         } catch (PDOException $e) {
             echo "Error: " . $e;
         }
         return new PetShop(self::$array_pets);
-        
     }
-    
 
 }
