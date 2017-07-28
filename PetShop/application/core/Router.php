@@ -5,22 +5,30 @@ class Router {
     public static function start() 
     {
         $controllerName = 'Main';
-        $actionName = 'index';
+        $actionName = 'Index';
 
         $routes = explode('/', $_SERVER['REQUEST_URI']);
-        
-        if (!empty($routes[1])) {
-            $controllerName = $routes[1];
+        if (count($routes) === 3) {
+            if (!empty($routes[1])) {
+                $controllerName = $routes[1];
+            }
+
+            if (!empty($routes[2])) {
+                $actionName = $routes[2];
+            }
+        } else {
+            if (!empty($routes[2])) {
+                $controllerName = $routes[2];
+            }
+
+            if (!empty($routes[3])) {
+                $actionName = $routes[3];
+            }
         }
-        
-        if (!empty($routes[2])) {
-            $actionName = $routes[2];
-        }
-        
         $modelName = 'Model' . $controllerName;
         $controllerName = 'Controller' . $controllerName;
         $actionName = 'action' . $actionName;
-        
+
         $modelFile = $modelName . '.php';
         $modelPath = "application/models/" . $modelFile;
         if (file_exists($modelPath)) {

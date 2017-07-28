@@ -17,6 +17,11 @@ class Candidate extends Person implements IComparable, IITWorker,  JsonSerializa
         $this->experience = $experience;
     }
     
+    public function getClassName()
+    {
+        return get_class($this);
+    }
+    
     public function getWantsSalary() 
     {
         return $this->wantsSalary;

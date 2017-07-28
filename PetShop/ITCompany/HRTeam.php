@@ -1,6 +1,6 @@
 <?php
 
-class HRTeam implements JsonSerializable{
+class HRTeam implements JsonSerializable {
 
     private $candidates = [];
     private $arr_func = array("PMrecruter" => "PM", "QCRecruter" => "QC", "DevRecruter" => "DEV");
@@ -15,16 +15,19 @@ class HRTeam implements JsonSerializable{
 
     public function getCandidates() 
     {
-        $result = "";
+        $result = [];
         foreach ($this->candidates as $candidate) {
-            $result.=$candidate->toString();
+            $result[] = ['type' => $candidate->getClassName(),
+                'name' => $candidate->getName(),
+                'wantssalary' => $candidate->getWantsSalary(),
+                'profile' => $candidate->getProfile(),
+                'experience' => $candidate->getExperience()];
         }
         return $result;
     }
 
     public function getArrayCandidates() 
     {
-
         return $this->candidates;
     }
 
@@ -74,22 +77,22 @@ class HRTeam implements JsonSerializable{
         return $recrut->getSpecialist($this, $team);
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize() 
+    {
         return $this->candidates;
     }
-    
-    public static function jsonUnSerialize(array $candidates) {
+
+    public static function jsonUnSerialize(array $candidates) 
+    {
         $arrCandidates = [];
         foreach ($candidates as $key => $candidate) {
-            array_push($arrCandidates,new Candidate($candidate['name'],
-                       $candidate['wantsSalary'],$candidate['profile'],
-                       $candidate['experience']));
+            array_push($arrCandidates, new Candidate($candidate['name'], $candidate['wantsSalary'], $candidate['profile'], $candidate['experience']));
         }
         $hr = new HRTeam();
         foreach ($arrCandidates as $candidate) {
             $hr->addCandidates($candidate);
         }
-        return  $hr;
+        return $hr;
     }
-    
+
 }

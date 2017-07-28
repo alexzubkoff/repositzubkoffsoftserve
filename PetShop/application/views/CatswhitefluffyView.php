@@ -14,7 +14,7 @@
             <?= $pet['price'] ?>
         </td>
         <td>
-            <?= $pet['fluffiness']?>
+            <?= $pet['fluffiness'] ?>
         </td>
     </tr>
 

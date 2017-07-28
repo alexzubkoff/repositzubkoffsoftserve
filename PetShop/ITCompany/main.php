@@ -49,27 +49,27 @@ $hr->addCandidates($cand8);
 //echo $hr->getCandidates();
 //echo'<p><p/>';
 
-$team1 = new Team('JavaScriptMonsters', 'JavaScript');
-$team2 = new Team('JavaSuper', 'Java');
+//$team1 = new Team('JavaScriptMonsters', 'JavaScript');
+//$team2 = new Team('JavaSuper', 'Java');
 
-$team1->addTeamMember($worker1);
-$team2->addTeamMember($worker2);
+//$team1->addTeamMember($worker1);
+//$team2->addTeamMember($worker2);
 //echo $team1->getTeamMembers();
 //echo $team2->getTeamMembers();
 //echo'<p><p/>';
 
-$team1->addNeeds("QC");
-$team1->addNeeds("DEV");
-$team2->addNeeds("PM");
-$team2->addNeeds("DEV");
+//$team1->addNeeds("QC");
+//$team1->addNeeds("DEV");
+//$team2->addNeeds("PM");
+//$team2->addNeeds("DEV");
 
 
 //echo $team1->getNeedstoString();
 //echo $team2->getNeedstoString();
 //echo'<p><p/>';
 
-$it_company->addTeams($team1);
-$it_company->addTeams($team2);
+//$it_company->addTeams($team1);
+//$it_company->addTeams($team2);
 
 //$it_company->hire($hr);
 //echo $it_company->getTeams();
@@ -78,25 +78,25 @@ $it_company->addTeams($team2);
 //echo $it_company->getCandidates($hr);
 
 //echo "<p><p/>";
-$dataprov = new DataProvider();
-$dataprov->writeFile("Db/Teams.txt", $it_company);
-$dataprov->writeFile("Db/Candidates.txt",$hr);
-$cand_txt = $dataprov->readFile("Db/Candidates.txt");
-$hrAfter = HRTeam::txtUnSerialize($cand_txt);
+//$dataprov = new DataProvider();
+//$dataprov->writeFile("Db/Teams.txt", $it_company);
+//$dataprov->writeFile("Db/Candidates.txt",$hr);
+//$cand_txt = $dataprov->readFile("Db/Candidates.txt");
+//$hrAfter = HRTeam::txtUnSerialize($cand_txt);
 //echo "<h4>Recreated from Candidates.txt</h4><br/>";
 //echo $hrAfter->getCandidates();
 
-$dataprovjson = new DataProviderJson();
-$dataprovjson->writeFile("Db/Candidates.json", $hr);
-$candidates = $dataprovjson->readFile("Db/Candidates.json");
+//$dataprovjson = new DataProviderJson();
+//$dataprovjson->writeFile("Db/Candidates.json", $hr);
+//$candidates = $dataprovjson->readFile("Db/Candidates.json");
 //echo "<p><p/>";
-$hrAfter2= HRTeam::jsonUnSerialize($candidates);
+//$hrAfter2= HRTeam::jsonUnSerialize($candidates);
 //echo "<h4>Recreated from Candidates.json</h4><br/>";
 //echo $hrAfter2->getCandidates();
 
 //echo "<p><p/>";
-$dataprovjson->writeFile("Db/Teams.json", $it_company);
-$itComp = $dataprovjson->readFile("Db/Teams.json");
+//$dataprovjson->writeFile("Db/Teams.json", $it_company);
+//$itComp = $dataprovjson->readFile("Db/Teams.json");
 
 
 

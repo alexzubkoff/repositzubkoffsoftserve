@@ -1,6 +1,6 @@
 <?php
 
-require_once '././main.php';
+require_once '././PetShopLib/main.php';
 
 class ModelPetShop extends Model {
 
@@ -11,9 +11,9 @@ class ModelPetShop extends Model {
     public function __construct() 
     {
         $this->dataprov = new DataProvider();
-        $this->text = $this->dataprov->readFile("DB.txt");
+        $this->text = $this->dataprov->readFile("PetShopLib/DB.txt");
         $this->petshop = PetShop::txtUnSerialize($this->text);
-        //$this->petshop = Petshop::getDataMySqlDb();     
+        //$this->petshop = Petshop::getDataMySqlDb();        
     }
 
     public function getAllPets() 

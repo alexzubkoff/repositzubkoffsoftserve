@@ -1,13 +1,13 @@
 <?php
 
-class Team implements JsonSerializable{
+class Team implements JsonSerializable {
 
     protected $name = "";
     protected $project = "";
     protected $teamMembers = [];
     protected $needs = [];
 
-    public function __construct($name, $project)
+    public function __construct($name, $project) 
     {
         $this->name = $name;
         $this->project = $project;
@@ -16,11 +16,13 @@ class Team implements JsonSerializable{
     public function addTeamMember(HardSpecialist $hardspec) 
     {
         array_push($this->teamMembers, $hardspec);
-        foreach ($this->needs as $need) {
-            if ($need == get_class($hardspec)) {
-                array_unshift($this->needs, $need);
+        $arr = [];
+        for ($i = 0; $i < count($this->needs); $i++) {
+            if ($this->needs[$i] === get_class($hardspec)) {
+                $arr[] = array_splice($this->needs, $i);
             }
         }
+        $this->needs = $arr;
     }
 
     public function addNeeds($needs) 
@@ -37,7 +39,14 @@ class Team implements JsonSerializable{
         }
     }
 
-    public function getNeeds()
+    public function getNeedsString() 
+    {
+        if (!is_null($this->needs)) {
+            return implode(';', $this->needs);
+        }
+    }
+
+    public function getNeeds() 
     {
         return $this->needs;
     }
@@ -51,6 +60,11 @@ class Team implements JsonSerializable{
         return $result;
     }
 
+    public function getClassName() 
+    {
+        return get_class($this);
+    }
+
     public function doJob() 
     {
         return $this->project;
@@ -60,7 +74,7 @@ class Team implements JsonSerializable{
     {
         return $this->name;
     }
-    
+
     public function getTeamProject() 
     {
         return $this->project;
@@ -72,8 +86,7 @@ class Team implements JsonSerializable{
         foreach ($this->teamMembers as $member) {
             $result .= $member->toString();
         }
-        return get_class($this) . " : " . $this->name . "; project: "
-                . $this->project . ";<br/>" . $result . "<br/>";
+        return $result;
     }
 
     public function txtSerialize() 
@@ -86,8 +99,7 @@ class Team implements JsonSerializable{
     }
 
     public function jsonSerialize() 
-    {
-        //return $this->teamMembers;
+    {       
         return get_object_vars($this);
     }
 

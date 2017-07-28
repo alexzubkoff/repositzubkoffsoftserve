@@ -1,35 +1,40 @@
 <?php
 
 class ControllerPetshop extends Controller {
-
+     
     public function __construct() 
     {
         $this->model = new ModelPetShop();
-        $this->view = new View();
+        parent::__construct();
     }
 
-    public function actionindex() 
+    public function actionIndex() 
     {
         $data = $this->model->getAllPets();
-        $this->view->generate('PetshopView.php','TemplateView.php', $data);
+        $this->view->generate('PetshopView.php', 'TemplatePetShop.php', $data);
     }
 
-    public function actionmorethanaver() 
+    public function actionMorethanaver() 
     {
         $data = $this->model->getMoreThanAveragePrice();
-        $this->view->generate('MorethanaverView.php', 'TemplateView.php', $data);
+        $this->view->generate('MorethanaverView.php', 'TemplatePetShop.php', $data);
     }
 
-    public function actioncatswhitefluffy() 
+    public function actionCatswhitefluffy() 
     {
         $data = $this->model->getCatsWhiteFluffy();
-        $this->view->generate('CatswhitefluffyView.php', 'TemplateView.php', $data);
+        $this->view->generate('CatswhitefluffyView.php', 'TemplatePetShop.php', $data);
     }
 
-    public function actionmostexpensive() 
+    public function actionMostexpensive() 
     {
         $data = $this->model->getMostExpensivePets();
-        $this->view->generate('MostexpensiveView.php', 'TemplateView.php', $data);
+        $this->view->generate('MostexpensiveView.php', 'TemplatePetShop.php', $data);
+    }
+
+    public function actionCandidatesbefore() 
+    {
+        $this->view->generate('ITCompanyCandBeforeView.php', 'TemplateITCompany.php', $data);
     }
 
 }

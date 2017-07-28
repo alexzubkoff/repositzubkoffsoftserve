@@ -51,9 +51,13 @@ class ITCompany implements JsonSerializable {
 
     public function getTeams() 
     {
-        $result = '';
+        $result = [];
         foreach ($this->teams as $team) {
-            $result.= $team->getTeamMembers() . "<br/>";
+            $result[] = ['type'=>$team->getClassName(),
+                         'name'=>$team->getTeamName(),
+                         'project'=>$team->getTeamProject(),
+                         'teammembers'=>$team->getTeamMembers(),
+                         'needs'=>$team->getNeedsString()];
         }
         return $result;
     }
@@ -99,16 +103,6 @@ class ITCompany implements JsonSerializable {
                 echo $key . ":" . $value . "<br/>";
             }
         }
-        /*
-          foreach ($itComp['teams'][0] as $key => $value) {
-          echo $key.":".$value."<br/>";
-          }
-          foreach ($itComp['teams'][0]['teamMembers'] as $key => $value) {
-          echo $key.":".$value."<br/>";
-          }
-          foreach ($itComp['teams'][0]['teamMembers'][0] as $key => $value) {
-          echo $key.":".$value."<br/>";
-          } */
         return  $itNew;
     }
 

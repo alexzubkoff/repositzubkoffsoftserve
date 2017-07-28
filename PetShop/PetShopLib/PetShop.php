@@ -9,14 +9,16 @@ class Petshop {
     protected static $user = "root";
     protected static $pass = "";
 
-    public function __construct(array $pets) {
+    public function __construct(array $pets) 
+    {
         $length = count($pets);
         for ($i = 0; $i < $length; $i++) {
             $this->pets_array[] = $pets[$i];
         }
     }
 
-    public function getPets() {
+    public function getPets() 
+    {
         $arrPetsAssoc = [];
 
         foreach ($this->pets_array as $pet) {
@@ -38,7 +40,8 @@ class Petshop {
         return $arrPetsAssoc;
     }
 
-    public function toString() {
+    public function toString() 
+    {
         $result = "";
         $length = count($this->pets_array);
         for ($i = 0; $i < $length; $i++) {
@@ -47,7 +50,8 @@ class Petshop {
         return $result;
     }
 
-    public function getMoreThanAveragePricePets() {
+    public function getMoreThanAveragePricePets() 
+    {
         $arrResult = [];
         $average = 0;
         foreach ($this->pets_array as $pet) {
@@ -75,22 +79,24 @@ class Petshop {
         return $arrResult;
     }
 
-    public function getWhiteOrFluffyCats() {
+    public function getWhiteOrFluffyCats() 
+    {
         $arrResult = [];
         foreach ($this->pets_array as $pet) {
             if (($pet->getClassName() === "Cat" ) && (($pet->getColor() === 'white') || $pet->getFluffy())) {
                 $arrResult[] = ['type' => $pet->getClassName(),
-                                'name' => $pet->getName(),
-                                'color' => $pet->getColor(),
-                                'price' => $pet->getPrice(),
-                                'fluffiness' => $pet->getFluffy()];
+                    'name' => $pet->getName(),
+                    'color' => $pet->getColor(),
+                    'price' => $pet->getPrice(),
+                    'fluffiness' => $pet->getFluffy()];
             }
         }
 
         return $arrResult;
     }
 
-    public function getExpensivePets() {
+    public function getExpensivePets() 
+    {
         $exp = $this->pets_array[0]->getPrice();
         $arrResult = [];
         $length = count($this->pets_array);
@@ -103,23 +109,24 @@ class Petshop {
             if ($pet->getPrice() === $exp) {
                 if ($pet->getClassName() === 'Dog') {
                     $arrResult[] = ['type' => $pet->getClassName(),
-                                    'name' => $pet->getName(),
-                                    'color' => $pet->getColor(),
-                                    'price' => $pet->getPrice(),
-                                     'fluffiness' => '0'];
+                        'name' => $pet->getName(),
+                        'color' => $pet->getColor(),
+                        'price' => $pet->getPrice(),
+                        'fluffiness' => '0'];
                 } else {
                     $arrResult[] = ['type' => $pet->getClassName(),
-                                    'name' => $pet->getName(),
-                                    'color' => $pet->getColor(),
-                                    'price' => $pet->getPrice(),
-                                    'fluffiness' => $pet->getFluffy()];
+                        'name' => $pet->getName(),
+                        'color' => $pet->getColor(),
+                        'price' => $pet->getPrice(),
+                        'fluffiness' => $pet->getFluffy()];
                 }
             }
         }
         return $arrResult;
     }
 
-    public function txtSerialize() {
+    public function txtSerialize() 
+    {
         $str = "";
         foreach ($this->pets_array as $pet) {
             $str .= $pet->txtSerialize();
@@ -127,7 +134,8 @@ class Petshop {
         return $str;
     }
 
-    public static function txtUnSerialize($str) {
+    public static function txtUnSerialize($str) 
+    {
         $pets_arr = explode(";", $str);
         array_pop($pets_arr);
         $new_arr = [];
@@ -145,7 +153,8 @@ class Petshop {
         return new PetShop(self::$array_pets);
     }
 
-    public static function getDataMySqlDb() {
+    public static function getDataMySqlDb() 
+    {
         try {
             $connection = new PDO('mysql:host=' . self::$host . ';dbname=' . self::$db . ';charset=utf8', self::$user, self::$pass);
             $sth = $connection->prepare("SELECT * FROM Pets");
