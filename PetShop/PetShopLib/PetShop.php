@@ -155,9 +155,10 @@ class Petshop {
 
     public static function getDataMySqlDb() 
     {
-        try {
+        try {       
             $connection = new PDO('mysql:host=' . self::$host . ';dbname=' . self::$db . ';charset=utf8', self::$user, self::$pass);
             $sth = $connection->prepare("SELECT * FROM Pets");
+            $connection = null;
             $sth->execute();
             $result = $sth->fetchAll(PDO::FETCH_ASSOC);
             foreach ($result as $animal) {

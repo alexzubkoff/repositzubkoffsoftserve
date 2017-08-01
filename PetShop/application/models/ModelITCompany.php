@@ -68,6 +68,7 @@ class ModelITCompany extends Model {
         try {
             $connection = new PDO('mysql:host=' . self::HOST . ';dbname=' . self::DB . ';charset=utf8', self::USER, self::PASS);
             $sth = $connection->prepare("SELECT DISTINCT Candidates.Name,Candidates.Wants_Salary,Candidates.Profile,Candidates.Experience FROM Candidates INNER JOIN Teams ON Teams.Project= Candidates.Profile INNER JOIN Teams_Needs ON Candidates.Experience=Teams_Needs.Experience;");
+            $connection = null;
             $sth->execute();
             $result = $sth->fetchAll(PDO::FETCH_ASSOC);
             $arrObjCand = [];
